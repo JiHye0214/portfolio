@@ -14,7 +14,7 @@ const NavLink = ({ to, label }: { to: string; label: string }) => {
                     isActive && location.pathname === "/about"
                         ? "text-yellow-500 border-b-2 border-yellow-500"
                         : isActive
-                        ? "text-blue-600 border-b-2 border-blue-600"
+                        ? "text-blue-800 border-b-2 border-blue-800"
                         : ""
                 }`}
         >

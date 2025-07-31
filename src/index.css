@@ -7,6 +7,9 @@
 body {
     @apply text-gray-800;
 }
+input, textarea {
+  outline: none;
+}
 
 .scrollbar-hide {
   -ms-overflow-style: none;  /* IE, Edge */

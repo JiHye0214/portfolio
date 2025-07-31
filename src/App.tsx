@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { useLocation, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
@@ -12,9 +12,24 @@ import Layout from "./layout/Layout";
 
 function App() {
     const location = useLocation();
+    const [bgImg, setBgImg] = useState("");
+    const [bgColor, setBgColor] = useState("#fff");
+    const [textColor, setTextColor] = useState("");
+
+    useEffect(() => {
+        if (location.pathname === "/about") {
+            setBgImg("url('/assets/bg.jpg')");
+            setBgColor("#000")
+            setTextColor("#fff");
+        } else {
+            setBgImg("");
+            setBgColor("#fff")
+            setTextColor("");
+        }
+    }, [location.pathname]);
 
     return (
-        <div className={`min-h-screen ${location.pathname === "/about" ? "bg-black text-white" : "bg-white"}`}>
+        <div style={{ backgroundImage: bgImg, backgroundColor: bgColor, color: textColor, transition: "background-color 0.3s ease", minHeight: "100vh" }} className="bg-cover bg-center">
             <Header />
             <Layout>
                 <Routes>

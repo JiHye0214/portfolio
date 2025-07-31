@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const About = () => {
     return (
-        <div style={{ backgroundImage: "url('/assets/bg.jpg')" }} className="bg-cover bg-center h-full w-full overflow-hidden">
+        <div className="h-full w-full overflow-hidden">
             <div className="h-[802px] overflow-y-scroll scrollbar-hide">
                 <ScrollDiv isFirst={true}>Hi! I'm Jihye</ScrollDiv>
                 <ScrollDiv isFirst={false} title="Quick Intro">
