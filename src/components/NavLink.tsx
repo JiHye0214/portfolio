@@ -9,7 +9,14 @@ const NavLink = ({ to, label }: { to: string; label: string }) => {
     return (
         <Link
             to={to}
-            className={`px-2 py-1 ${isActive ? "text-blue-600 border-b-2 border-blue-600" : ""}`}
+            className={`px-2 py-1 
+                ${
+                    isActive && location.pathname === "/about"
+                        ? "text-yellow-500 border-b-2 border-yellow-500"
+                        : isActive
+                        ? "text-blue-600 border-b-2 border-blue-600"
+                        : ""
+                }`}
         >
             {label}
         </Link>

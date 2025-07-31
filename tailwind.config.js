@@ -8,11 +8,12 @@ module.exports = {
             },
             height: {
                 "content-height": "calc(100vh - 96px)",
+                "fit": "fit-content",
             },
             fontFamily: {
                 sans: ['Roboto', 'sans-serif']
             }
         },
     },
-    plugins: [],
+    plugins: [require('tailwind-scrollbar-hide')],
 };

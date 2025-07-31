@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useLocation, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -11,8 +11,10 @@ import Footer from "./components/Footer";
 import Layout from "./layout/Layout";
 
 function App() {
+    const location = useLocation();
+
     return (
-        <Router>
+        <div className={`min-h-screen ${location.pathname === "/about" ? "bg-black text-white" : "bg-white"}`}>
             <Header />
             <Layout>
                 <Routes>
@@ -24,7 +26,7 @@ function App() {
                 </Routes>
             </Layout>
             <Footer />
-        </Router>
+        </div>
     );
 }
 
