@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
     return (
-        <div className="h-full flex gap-[100px] justify-center items-center">
+        <div className="h-full flex gap-[150px] justify-center items-center">
             <img className="w-[350px] rounded-full" src="/assets/profile.jpg" alt="" />
             <div className="flex flex-col items-center gap-5">
                 <p className="text-2xl font-bold">Hello, I'm</p>

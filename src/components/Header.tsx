@@ -5,7 +5,7 @@ const Header = () => {
     return (
         <header className="max-w-[1200px] h-12 mx-auto flex justify-between items-center">
             <p className="font-bold">Jihye Park</p>
-            <nav className="flex gap-5 text-sm">
+            <nav className="flex gap-7 text-sm">
                 <NavLink to="/" label="Home"></NavLink>
                 <NavLink to="/about" label="About"></NavLink>
                 <NavLink to="/projects" label="Projects"></NavLink>
