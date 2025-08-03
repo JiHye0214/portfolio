@@ -1,0 +1,8 @@
+데이터베이스 구성
+
+Contact - id, firstname, lastname, email, message
+Projects - id, title, description, tech stack, imageUrl, gitLink, role, challenges, createdAt
+
+* 비밀 관리자 페이지
+	컨택 목록 확인 
+	방문자 확인 

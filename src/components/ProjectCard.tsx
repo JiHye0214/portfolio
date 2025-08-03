@@ -1,24 +1,35 @@
 import React from "react";
 
-type LayoutProps = {
-    mainImg: string;
-    title: string;
-    mainStacks: Array<string>;
-    onClick?: () => void;
-    className?: string;
+type Props = {
+    project: {
+        id: number;
+        title: string;
+        description: string;
+        isTeam: boolean;
+        stacks: Array<string>;
+        screens: Array<string>;
+        gitLink: string;
+        role: string;
+        challenges: string;
+        createdAt: string;
+    };
 };
 
-const ProjectCard = ({ mainImg, title, mainStacks, onClick, className }: LayoutProps) => {
+const ProjectCard = ({ project }: Props) => {
     return (
-        <div onClick={onClick} className="min-w-[260px] overflow-hidden hover:cursor-pointer">
-            <img className={`w-[260px] hover:shadow-xl rounded-xl hover:shadow-gray-300 transition-all duration-300 ease-in-out ${className}`} src={`/assets/` + mainImg} alt="" />
+        <div className="min-w-[260px] h-fit overflow-hidden hover:cursor-pointer">
+            <img className={`w-[260px] hover:shadow-xl hover:shadow-gray-300`} src={`/assets/` + project.screens[0]} alt="" />
             <div className="flex flex-col gap-2 pt-5">
                 <div className="flex gap-2">
-                    {mainStacks.map((stack, index) => (
-                        <p key={index} className="text-xs text-white bg-gray-300 px-2 py-1 rounded-full">{stack}</p>
-                    ))}
+                    {project.stacks
+                        .slice(0, 3)
+                        .map((stack, index) => (
+                            <p key={index} className="text-xs text-white bg-gray-300 px-2 py-1 rounded-full">
+                                {stack}
+                            </p>
+                        ))}
                 </div>
-                <p className="text-lg font-bold">{title}</p>
+                <p className="text-lg font-bold">{project.title}</p>
             </div>
         </div>
     );
