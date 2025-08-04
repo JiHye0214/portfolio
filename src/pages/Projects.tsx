@@ -1,23 +1,70 @@
 /* eslint-disable jsx-a11y/alt-text */
+import { useEffect, useRef, useState } from "react";
 import ProjectCard from "../components/ProjectCard";
 
 const Projects = () => {
+    const [detailOpen, setDetailOpen] = useState(false);
+    const [prjDetail, setPrjDetail] = useState({
+        id: 0,
+        title: "",
+        description: "",
+        isTeam: false,
+        stacks: [],
+        screens: [],
+        gitLink: "",
+        role: "",
+        challenges: "",
+        createdAt: "",
+    });
+    
+    const useElementHeight = (ref: React.RefObject<HTMLElement | null>) => {
+        const [height, setHeight] = useState<number>(0);
+
+        useEffect(() => {
+            if (!ref.current) return;
+
+            const resizeObserver = new ResizeObserver((entries) => {
+                for (let entry of entries) {
+                    setHeight(entry.contentRect.height);
+                }
+            });
+
+            resizeObserver.observe(ref.current);
+
+            return () => resizeObserver.disconnect();
+        }, [ref]);
+
+        return height;
+    };
+    const modalContentRef = useRef<HTMLDivElement>(null);
+    const contentHeight = useElementHeight(modalContentRef);
+
+    useEffect(() => {
+        if (detailOpen) {
+            const el = document.getElementById("modalTop");
+
+            el?.scrollIntoView({ behavior: "auto" });
+        }
+    }, [detailOpen]);
+
     const projectsDB = [
         {
             id: 0,
-            title: "Title1",
-            description: "description",
+            title: "My child",
+            description:
+                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus error vel quasi ratione aperiam, incidunt quas labore ex iste doloribus nulla libero eum. Totam quaerat neque odio ipsa. Qui, delectus?",
             isTeam: false,
-            stacks: ["React", "NodeJs", "tailwind", "github", "Typescript"],
-            screens: ["bg.jpg", "bg2.jpg"],
+            stacks: ["React", "NodeJs", "tailwind", "github3", "Typescript"],
+            screens: ["bg.jpg", "bg2.jpg", "bg.jpg", "bg2.jpg", "bg.jpg", "bg2.jpg"],
             gitLink: "https://www.test.com",
-            role: "test",
-            challenges: "test",
+            role: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus error vel quasi ratione aperiam, incidunt quas labore ex iste doloribus nulla libero eum. Totam quaerat neque odio ipsa. Qui, delectus?",
+            challenges:
+                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus error vel quasi ratione aperiam, incidunt quas labore ex iste doloribus nulla libero eum. Totam quaerat neque odio ipsa. Qui, delectus?",
             createdAt: "2023-11",
         },
         {
             id: 1,
-            title: "Title2",
+            title: "KKIA Tigers",
             description: "description",
             isTeam: true,
             stacks: ["React", "NodeJs", "tailwind", "github", "Typescript"],
@@ -65,20 +112,90 @@ const Projects = () => {
         },
     ];
 
+    const handlePrjDetail = (project: any) => {
+        setPrjDetail(project);
+        setDetailOpen(!detailOpen);
+    };
+
     return (
         <div className="h-full w-full overflow-hidden">
             <div className="flex flex-col gap-3 my-10">
                 <p className="text-5xl font-bold">Projects</p>
                 <p>See my portfolio</p>
             </div>
-            <div className="flex gap-7">
-                <div className="min-w-[1200px] h-[568px] flex flex-wrap gap-7 overflow-scroll scrollbar-hide">
-                    {projectsDB.map((project, index) => (
-                        <ProjectCard
-                            key={index}
-                            project={project}
-                        />
-                    ))}
+            <div className="min-w-[1200px] h-[600px] flex flex-wrap gap-3 overflow-scroll scrollbar-hide">
+                {projectsDB.map((project, index) => (
+                    <ProjectCard
+                        onClick={() => handlePrjDetail(project)}
+                        key={index}
+                        isTeam={project.isTeam}
+                        title={project.title}
+                        mainImg={project.screens[0]}
+                        stacks={project.stacks.slice(0, 3)}
+                        date={project.createdAt}
+                    />
+                ))}
+            </div>
+
+            <div
+                className={`fixed w-full h-full top-0 left-0 flex justify-center items-center transition-all duration-200 ease-in-out overflow-scroll scrollbar-hide ${
+                    detailOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+                }`}
+            >
+                <div
+                    id="modalTop"
+                    style={{ height: contentHeight + 100 }}
+                    className="absolute inset-0 bg-gray-500 bg-opacity-70"
+                    onClick={() => setDetailOpen(!detailOpen)}
+                ></div>
+                <div
+                    ref={modalContentRef}
+                    className="absolute top-[100px] w-[800px] flex flex-col gap-7 opacity-100 bg-white px-[50px] py-[70px] rounded-xl"
+                >
+                    <p className="text-4xl font-bold">{prjDetail.title}</p>
+
+                    <div className="flex flex-col gap-2">
+                        <p className="text-xs text-gray-500">Description</p>
+                        <p className="">{prjDetail.description}</p>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <p className="text-xs text-gray-500">Project Type</p>
+                        <p>{prjDetail.isTeam ? "Team" : "Personal"}</p>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <p className="text-xs text-gray-500">Responsibilities</p>
+                        <p className="">{prjDetail.role}</p>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <p className="text-xs text-gray-500">Tech Stack</p>
+                        <div className="flex gap-2">
+                            {prjDetail.stacks.map((img, index) => (
+                                <img key={index} src={`/assets/logo-` + img + `.png`} className="w-10" />
+                            ))}
+                        </div>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <p className="text-xs text-gray-500">Challenges</p>
+                        <p className="">{prjDetail.challenges}</p>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <p className="text-xs text-gray-500">Date</p>
+                        <p className="">{prjDetail.createdAt}</p>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <p className="text-xs text-gray-500">Preview</p>
+                        <div className="w-[700px] flex gap-3 overflow-x-scroll">
+                            {prjDetail.screens.map((img, index) => (
+                                <img key={index} src={`/assets/` + img} className="w-[300px] rounded-xl" />
+                            ))}
+                        </div>
+                    </div>
+                    <div>
+                        <p className="text-xs text-gray-500">Url</p>
+                        <a href="https://github.com/JiHye0214" target="_blank" rel="noopener noreferrer">
+                            github
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
