@@ -4,50 +4,6 @@ import ProjectCard from "../components/ProjectCard";
 import { motion } from "framer-motion";
 
 const Projects = () => {
-    const [detailOpen, setDetailOpen] = useState(false);
-    const [prjDetail, setPrjDetail] = useState({
-        id: 0,
-        title: "",
-        description: "",
-        isTeam: false,
-        stacks: [],
-        screens: [],
-        gitLink: "",
-        role: "",
-        challenges: "",
-        createdAt: "",
-    });
-
-    const useElementHeight = (ref: React.RefObject<HTMLElement | null>) => {
-        const [height, setHeight] = useState<number>(0);
-
-        useEffect(() => {
-            if (!ref.current) return;
-
-            const resizeObserver = new ResizeObserver((entries) => {
-                for (let entry of entries) {
-                    setHeight(entry.contentRect.height + 340);
-                }
-            });
-
-            resizeObserver.observe(ref.current);
-
-            return () => resizeObserver.disconnect();
-        }, [ref]);
-
-        return height;
-    };
-    const modalContentRef = useRef<HTMLDivElement>(null);
-    const contentHeight = useElementHeight(modalContentRef);
-
-    useEffect(() => {
-        if (detailOpen) {
-            const el = document.getElementById("modalTop");
-
-            el?.scrollIntoView({ behavior: "auto" });
-        }
-    }, [detailOpen]);
-
     const projectsDB = [
         {
             id: 0,
@@ -112,6 +68,49 @@ const Projects = () => {
             createdAt: "2025-03",
         },
     ];
+
+    const [detailOpen, setDetailOpen] = useState(false);
+    const [prjDetail, setPrjDetail] = useState({
+        id: 0,
+        title: "",
+        description: "",
+        isTeam: false,
+        stacks: [],
+        screens: [],
+        gitLink: "",
+        role: "",
+        challenges: "",
+        createdAt: "",
+    });
+    const useElementHeight = (ref: React.RefObject<HTMLElement | null>) => {
+        const [height, setHeight] = useState<number>(0);
+
+        useEffect(() => {
+            if (!ref.current) return;
+
+            const resizeObserver = new ResizeObserver((entries) => {
+                for (let entry of entries) {
+                    setHeight(entry.contentRect.height + 340);
+                }
+            });
+
+            resizeObserver.observe(ref.current);
+
+            return () => resizeObserver.disconnect();
+        }, [ref]);
+
+        return height;
+    };
+    const modalContentRef = useRef<HTMLDivElement>(null);
+    const contentHeight = useElementHeight(modalContentRef);
+
+    useEffect(() => {
+        if (detailOpen) {
+            const el = document.getElementById("modalTop");
+
+            el?.scrollIntoView({ behavior: "auto" });
+        }
+    }, [detailOpen]);
 
     const handlePrjDetail = (project: any) => {
         setPrjDetail(project);
