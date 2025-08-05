@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { useEffect, useRef, useState } from "react";
 import ProjectCard from "../components/ProjectCard";
+import { motion } from "framer-motion";
 
 const Projects = () => {
     const [detailOpen, setDetailOpen] = useState(false);
@@ -16,7 +17,7 @@ const Projects = () => {
         challenges: "",
         createdAt: "",
     });
-    
+
     const useElementHeight = (ref: React.RefObject<HTMLElement | null>) => {
         const [height, setHeight] = useState<number>(0);
 
@@ -25,7 +26,7 @@ const Projects = () => {
 
             const resizeObserver = new ResizeObserver((entries) => {
                 for (let entry of entries) {
-                    setHeight(entry.contentRect.height);
+                    setHeight(entry.contentRect.height + 340);
                 }
             });
 
@@ -118,12 +119,18 @@ const Projects = () => {
     };
 
     return (
-        <div className="h-full w-full overflow-hidden">
-            <div className="flex flex-col gap-3 my-10">
+        <div className="h-full w-full pb-10">
+            <div className="flex flex-col items-center gap-7 py-[100px]">
                 <p className="text-5xl font-bold">Projects</p>
-                <p>See my portfolio</p>
+                <p>A collection of projects that demonstrate my skills and growth</p>
             </div>
-            <div className="min-w-[1200px] h-[600px] flex flex-wrap gap-3 overflow-scroll scrollbar-hide">
+            <motion.div
+                initial={{ opacity: 0, y: 50 }} // 시작 상태: 투명하고 아래쪽(y=50)
+                whileInView={{ opacity: 1, y: 0 }} // 뷰포트에 보일 때: 완전 보이고 위치 원상복귀
+                viewport={{ once: false, amount: 0.3 }} // 한 번만 실행, 30% 보이면 애니메이션 실행
+                transition={{ duration: 0.3, ease: "easeOut" }} // 애니메이션 시간과 이징
+                className="w-fit max-w-[910px] flex flex-wrap justify-start gap-5 mx-auto"
+            >
                 {projectsDB.map((project, index) => (
                     <ProjectCard
                         onClick={() => handlePrjDetail(project)}
@@ -135,7 +142,7 @@ const Projects = () => {
                         date={project.createdAt}
                     />
                 ))}
-            </div>
+            </motion.div>
 
             <div
                 className={`fixed w-full h-full top-0 left-0 flex justify-center items-center transition-all duration-200 ease-in-out overflow-scroll scrollbar-hide ${
@@ -144,7 +151,7 @@ const Projects = () => {
             >
                 <div
                     id="modalTop"
-                    style={{ height: contentHeight + 100 }}
+                    style={{ height: contentHeight }}
                     className="absolute inset-0 bg-gray-500 bg-opacity-70"
                     onClick={() => setDetailOpen(!detailOpen)}
                 ></div>

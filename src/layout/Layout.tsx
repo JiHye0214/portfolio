@@ -1,15 +1,14 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from "react";
+import { useLocation } from "react-router-dom";
 
 type LayoutProps = {
-  children: ReactNode;
+    children: ReactNode;
 };
 
 const Layout = ({ children }: LayoutProps) => {
-  return (
-    <div className="max-w-[1200px] h-[calc(100vh-96px)] mx-auto">
-      {children}
-    </div>
-  );
+    const location = useLocation();
+
+    return <div className={`max-w-[1200px] ${location.pathname === '/projects' ? "min-h-[calc(100vh-96px)]" : "h-[calc(100vh-96px)]"} mx-auto`}>{children}</div>;
 };
 
 export default Layout;
