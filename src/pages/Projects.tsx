@@ -176,7 +176,7 @@ const Projects = () => {
                         <p className="text-xs text-gray-500">Tech Stack</p>
                         <div className="flex gap-2">
                             {prjDetail.stacks.map((img, index) => (
-                                <img key={index} src={`/assets/logo-` + img + `.png`} className="w-10" />
+                                <img key={index} src={`/assets/logo/` + img + `.png`} className="w-10" />
                             ))}
                         </div>
                     </div>

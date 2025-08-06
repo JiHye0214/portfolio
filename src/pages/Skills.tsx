@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React from "react";
 import { motion } from "framer-motion";
 import SkillTag from "../components/SkillTag";
@@ -185,6 +186,15 @@ const Skills = () => {
             lastUsed: "2025-08",
         },
     ];
+    const category = [
+        {
+            type: "frontend",
+            label: "Frontend",
+        },
+        { type: "backend", label: "Backend" },
+        { type: "devops", label: "DevOps & Tools" },
+        { type: "aipython", label: "AI & Python" },
+    ];
 
     return (
         <div className="h-full w-full overflow-hidden">
@@ -194,17 +204,21 @@ const Skills = () => {
             </div>
 
             <motion.div
-                initial={{ opacity: 0, y: 50 }} // 시작 상태: 투명하고 아래쪽(y=50)
-                whileInView={{ opacity: 1, y: 0 }} // 뷰포트에 보일 때: 완전 보이고 위치 원상복귀
-                viewport={{ once: false, amount: 0.3 }} // 한 번만 실행, 30% 보이면 애니메이션 실행
-                transition={{ duration: 0.3, ease: "easeOut" }} // 애니메이션 시간과 이징
-                className="w-fit max-w-[910px] flex flex-wrap justify-start gap-5 mx-auto"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.3 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="w-fit flex flex-wrap justify-start gap-5 mx-auto"
             >
-                {skillsDB.map((skill, index) => (
-                    <SkillTag
-                        key={index}
-                        skill={skill}
-                    />
+                {category.map((category, index) => (
+                    <div className="flex flex-col gap-5">
+                        <p>{category.label}</p>
+                        {skillsDB.map((skill, index) => {
+                            if (skill.type === category.type) {
+                                return <SkillTag key={index} skill={skill} />;
+                            }
+                        })}
+                    </div>
                 ))}
             </motion.div>
         </div>

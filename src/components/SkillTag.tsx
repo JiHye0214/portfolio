@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 
 type LayoutProps = {
@@ -6,29 +7,25 @@ type LayoutProps = {
         name: string;
         type: string;
         level: number;
-        icon: string;
         experienceDuration: string;
         lastUsed: string;
     };
 };
-type SkillType = "frontend" | "backend" | "devops" | "aipython";
-const typeColorMap: Record<SkillType, string> = {
-    frontend: "bg-pink-400",
-    backend: "bg-blue-400",
-    devops: "bg-gray-400",
-    aipython: "bg-yellow-400",
-};
 
 const SkillTag = ({ skill }: LayoutProps) => {
-    const category = typeColorMap[skill.type as SkillType] ?? "bg-black";
-
     return (
-        <div className={`${category}`}>
-            <p>{skill.name}</p>
-            <p>{skill.level}</p>
-            <p>{skill.icon}</p>
-            <p>{skill.experienceDuration}</p>
-            <p>{skill.lastUsed}</p>
+        <div>
+            <div className="w-full flex justify-between gap-5 font-semibold">
+                <p>{skill.name}</p>
+                <div>
+                    {Array.from({ length: 10 }).map((_, i) => (
+                        <span key={i}>{i < skill.level ? "■" : "□"}</span>
+                    ))}
+                </div>
+
+            </div>
+            {/* <p>{skill.experienceDuration}</p>
+            <p>{skill.lastUsed}</p> */}
         </div>
     );
 };

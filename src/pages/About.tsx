@@ -15,23 +15,23 @@ const About = () => {
                 <ScrollDiv isFirst={false} title="Core Technologies">
                     <div className="flex flex-col gap-5">
                         <div className="h-[55px] flex items-center gap-5">
-                            <img src="/assets/logo-react.png" title="React" alt="React" className="w-14" />
+                            <img src="/assets/logo/react.png" title="React" alt="React" className="w-14" />
                             <p>Building dynamic and responsive user interfaces</p>
                         </div>
                         <div className="h-[55px] flex items-center gap-5">
-                            <img src="/assets/logo-tailwind.png" title="Tailwind CSS" alt="Tailwind CSS" className="w-14" />
+                            <img src="/assets/logo/tailwind.png" title="Tailwind CSS" alt="Tailwind CSS" className="w-14" />
                             <p>Fast and customizable styling framework</p>
                         </div>
                         <div className="h-[55px] flex items-center gap-5">
-                            <img src="/assets/logo-typescript.png" title="TypeScript" alt="TypeScript" className="w-14" />
+                            <img src="/assets/logo/typescript.png" title="TypeScript" alt="TypeScript" className="w-14" />
                             <p>Core programming languages for front-end and back-end</p>
                         </div>
                         <div className="h-[55px] flex items-center gap-5">
-                            <img src="/assets/logo-nodeJs.png" title="Node.js" alt="Node.js" className="w-14" />
+                            <img src="/assets/logo/nodeJs.png" title="Node.js" alt="Node.js" className="w-14" />
                             <p>Backend development with server-side JavaScript</p>
                         </div>
                         <div className="h-[55px] flex items-center gap-5">
-                            <img src="/assets/logo-github.png" title="Git/GitHub" alt="GitHub" className="w-14" />
+                            <img src="/assets/logo/github.png" title="Git/GitHub" alt="GitHub" className="w-14" />
                             <p>Version control and collaboration tools</p>
                         </div>
                     </div>
@@ -72,10 +72,10 @@ const About = () => {
                 <ScrollDiv isFirst={false} title="Wanna Know More?">
                     <div className="flex gap-7">
                         <a href="https://github.com/JiHye0214" target="_blank" rel="noopener noreferrer">
-                            <img src="/assets/logo-github.png" alt="" className="w-14" />
+                            <img src="/assets/logo/github.png" alt="" className="w-14" />
                         </a>
                         <a href="https://www.linkedin.com/in/jihye-p-2b3755344/" target="_blank" rel="noopener noreferrer">
-                            <img src="/assets/logo-linkedIn.png" alt="" className="w-14" />
+                            <img src="/assets/logo/linkedIn.png" alt="" className="w-14" />
                         </a>
                     </div>
                 </ScrollDiv>

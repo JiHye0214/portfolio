@@ -20,10 +20,10 @@ const Home = () => {
                 <div>
                     <div className="flex gap-3">
                         <a href="https://github.com/JiHye0214" target="_blank" rel="noopener noreferrer">
-                            <img src="/assets/logo-github3.png" alt="" className="w-10" />
+                            <img src="/assets/logo/github3.png" alt="" className="w-10" />
                         </a>
                         <a href="https://www.linkedin.com/in/jihye-p-2b3755344/" target="_blank" rel="noopener noreferrer">
-                            <img src="/assets/logo-linkedIn.png" alt="" className="w-10" />
+                            <img src="/assets/logo/linkedIn.png" alt="" className="w-10" />
                         </a>
                     </div>
                 </div>
