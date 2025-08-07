@@ -118,7 +118,7 @@ const Projects = () => {
     };
 
     return (
-        <div className="h-full w-full pb-10">
+        <div className="h-full w-full">
             <div className="flex flex-col items-center gap-7 py-[100px]">
                 <p className="text-5xl font-bold">Projects</p>
                 <p>A collection of projects that demonstrate my skills and growth</p>
@@ -128,7 +128,7 @@ const Projects = () => {
                 whileInView={{ opacity: 1, y: 0 }} // 뷰포트에 보일 때: 완전 보이고 위치 원상복귀
                 viewport={{ once: false, amount: 0.3 }} // 한 번만 실행, 30% 보이면 애니메이션 실행
                 transition={{ duration: 0.3, ease: "easeOut" }} // 애니메이션 시간과 이징
-                className="w-fit max-w-[910px] flex flex-wrap justify-start gap-5 mx-auto"
+                className="w-fit max-w-[910px] flex flex-wrap justify-start gap-5 mx-auto pb-[100px]"
             >
                 {projectsDB.map((project, index) => (
                     <ProjectCard

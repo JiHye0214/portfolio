@@ -11,8 +11,7 @@ const Skills = () => {
             type: "frontend",
             level: 8,
             icon: "html.png",
-            experienceDuration: "3 years",
-            lastUsed: "2025-08",
+            experienceDuration: 3,
         },
         {
             id: 1,
@@ -20,8 +19,7 @@ const Skills = () => {
             type: "frontend",
             level: 8,
             icon: "css.png",
-            experienceDuration: "3 years",
-            lastUsed: "2025-08",
+            experienceDuration: 3,
         },
         {
             id: 2,
@@ -29,8 +27,7 @@ const Skills = () => {
             type: "frontend",
             level: 6,
             icon: "tailwind.png",
-            experienceDuration: "1 years",
-            lastUsed: "2025-08",
+            experienceDuration: 1,
         },
         {
             id: 3,
@@ -38,8 +35,7 @@ const Skills = () => {
             type: "frontend",
             level: 7,
             icon: "javascript.png",
-            experienceDuration: "3 years",
-            lastUsed: "2025-08",
+            experienceDuration: 1,
         },
         {
             id: 4,
@@ -47,8 +43,7 @@ const Skills = () => {
             type: "frontend",
             level: 5,
             icon: "typescript.png",
-            experienceDuration: "1 years",
-            lastUsed: "2025-08",
+            experienceDuration: 1,
         },
         {
             id: 5,
@@ -56,8 +51,7 @@ const Skills = () => {
             type: "frontend",
             level: 6,
             icon: "react.png",
-            experienceDuration: "1 years",
-            lastUsed: "2025-08",
+            experienceDuration: 1,
         },
         {
             id: 6,
@@ -65,8 +59,7 @@ const Skills = () => {
             type: "backend",
             level: 6,
             icon: "nodejs.png",
-            experienceDuration: "2 years",
-            lastUsed: "2025-08",
+            experienceDuration: 2,
         },
         {
             id: 7,
@@ -74,8 +67,7 @@ const Skills = () => {
             type: "backend",
             level: 5,
             icon: "express.png",
-            experienceDuration: "1 years",
-            lastUsed: "2025-07",
+            experienceDuration: 1,
         },
         {
             id: 8,
@@ -83,8 +75,7 @@ const Skills = () => {
             type: "backend",
             level: 7,
             icon: "mysql.png",
-            experienceDuration: "3 years",
-            lastUsed: "2025-02",
+            experienceDuration: 3,
         },
         {
             id: 9,
@@ -92,17 +83,15 @@ const Skills = () => {
             type: "backend",
             level: 6,
             icon: "restapi.png",
-            experienceDuration: "1 years",
-            lastUsed: "2025-07",
+            experienceDuration: 1,
         },
         {
             id: 10,
             name: "Python",
             type: "aipython",
             level: 3,
-            icon: "restapi.png",
-            experienceDuration: "1 years",
-            lastUsed: "2023-08",
+            icon: "python.png",
+            experienceDuration: 1,
         },
         {
             id: 11,
@@ -110,17 +99,15 @@ const Skills = () => {
             type: "aipython",
             level: 1,
             icon: "ai.png",
-            experienceDuration: "1 years",
-            lastUsed: "2023-08",
+            experienceDuration: 1,
         },
         {
             id: 12,
             name: "GitHub",
             type: "devops",
             level: 5,
-            icon: "github.png",
-            experienceDuration: "3 years",
-            lastUsed: "2025-08",
+            icon: "github3.png",
+            experienceDuration: 3,
         },
         {
             id: 13,
@@ -128,8 +115,7 @@ const Skills = () => {
             type: "devops",
             level: 7,
             icon: "vscode.png",
-            experienceDuration: "3 years",
-            lastUsed: "2025-08",
+            experienceDuration: 3,
         },
         {
             id: 14,
@@ -137,8 +123,7 @@ const Skills = () => {
             type: "devops",
             level: 6,
             icon: "intellij.png",
-            experienceDuration: "3 years",
-            lastUsed: "2025-02",
+            experienceDuration: 3,
         },
         {
             id: 15,
@@ -146,8 +131,7 @@ const Skills = () => {
             type: "devops",
             level: 3,
             icon: "pycharm.png",
-            experienceDuration: "1 years",
-            lastUsed: "2023-08",
+            experienceDuration: 1,
         },
         {
             id: 16,
@@ -155,8 +139,7 @@ const Skills = () => {
             type: "devops",
             level: 5,
             icon: "postman.png",
-            experienceDuration: "2 years",
-            lastUsed: "2025-06",
+            experienceDuration: 2,
         },
         {
             id: 17,
@@ -164,8 +147,7 @@ const Skills = () => {
             type: "devops",
             level: 5,
             icon: "npm.png",
-            experienceDuration: "1 years",
-            lastUsed: "2025-08",
+            experienceDuration: 1,
         },
         {
             id: 18,
@@ -173,8 +155,7 @@ const Skills = () => {
             type: "frontend",
             level: 5,
             icon: "angular.png",
-            experienceDuration: "1 years",
-            lastUsed: "2025-08",
+            experienceDuration: 1,
         },
         {
             id: 19,
@@ -182,8 +163,7 @@ const Skills = () => {
             type: "backend",
             level: 5,
             icon: "firebase.png",
-            experienceDuration: "1 years",
-            lastUsed: "2025-08",
+            experienceDuration: 1,
         },
     ];
     const category = [
@@ -200,7 +180,7 @@ const Skills = () => {
         <div className="h-full w-full overflow-hidden">
             <div className="flex flex-col items-center gap-7 py-[100px]">
                 <p className="text-5xl font-bold">Skills</p>
-                <p>A collection of projects that demonstrate my skills and growth</p>
+                <p>The tools in my developer toolbox.</p>
             </div>
 
             <motion.div
@@ -208,16 +188,18 @@ const Skills = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.3 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="w-fit flex flex-wrap justify-start gap-5 mx-auto"
+                className="w-full flex justify-between pb-[100px]"
             >
                 {category.map((category, index) => (
-                    <div className="flex flex-col gap-5">
-                        <p>{category.label}</p>
-                        {skillsDB.map((skill, index) => {
-                            if (skill.type === category.type) {
-                                return <SkillTag key={index} skill={skill} />;
-                            }
-                        })}
+                    <div className="flex flex-col items-center gap-4">
+                        <p className={`w-full rounded-xl px-4 py-2 border-2 border-gray-800 ${index % 2 === 0 ? "bg-gray-800 text-white" : ""}`}>{category.label}</p>
+                        <div className="flex flex-col gap-3">
+                            {skillsDB.map((skill, index) => {
+                                if (skill.type === category.type) {
+                                    return <SkillTag key={index} skill={skill} />;
+                                }
+                            })}
+                        </div>
                     </div>
                 ))}
             </motion.div>

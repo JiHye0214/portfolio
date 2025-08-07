@@ -5,28 +5,29 @@ type LayoutProps = {
     skill: {
         id: number;
         name: string;
+        icon: string;
         type: string;
         level: number;
-        experienceDuration: string;
-        lastUsed: string;
+        experienceDuration: number;
     };
 };
 
 const SkillTag = ({ skill }: LayoutProps) => {
     return (
-        <div>
-            <div className="w-full flex justify-between gap-5 font-semibold">
-                <p>{skill.name}</p>
+        <div className="w-full flex justify-between items-center gap-8 font-semibold shadow-xl shadow-gray-200 p-5 rounded-xl">
+            <div className="w-[40px] h-[40px] overflow-hidden flex justify-center items-center">
+                <img src={`/assets/logo/${skill.icon}`} alt="" title={skill.name} className="w-full h-full object-contain" />
+            </div>
+            <div className="flex flex-col">
+                <span className="text-xs">
+                    {skill.name} / {skill.experienceDuration} {skill.experienceDuration < 2 ? "year" : "years"}
+                </span>
                 <div>
                     {Array.from({ length: 10 }).map((_, i) => (
                         <span key={i}>{i < skill.level ? "■" : "□"}</span>
                     ))}
                 </div>
-
             </div>
-            {/* 진짜 모르겠어 디자인을 어떻게 해야 되는지 */}
-            {/* <p>{skill.experienceDuration}</p>
-            <p>{skill.lastUsed}</p> */}
         </div>
     );
 };

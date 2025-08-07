@@ -8,7 +8,7 @@ type LayoutProps = {
 const Layout = ({ children }: LayoutProps) => {
     const location = useLocation();
 
-    return <div className={`max-w-[1200px] ${location.pathname === '/projects' ? "min-h-[calc(100vh-96px)]" : "h-[calc(100vh-96px)]"} mx-auto`}>{children}</div>;
+    return <div className={`max-w-[1200px] ${(location.pathname === '/projects' || location.pathname === '/skills') ? "min-h-[calc(100vh-96px)]" : "h-[calc(100vh-96px)]"} mx-auto`}>{children}</div>;
 };
 
 export default Layout;
