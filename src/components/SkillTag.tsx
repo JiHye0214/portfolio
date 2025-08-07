@@ -24,6 +24,7 @@ const SkillTag = ({ skill }: LayoutProps) => {
                 </div>
 
             </div>
+            {/* 진짜 모르겠어 디자인을 어떻게 해야 되는지 */}
             {/* <p>{skill.experienceDuration}</p>
             <p>{skill.lastUsed}</p> */}
         </div>
