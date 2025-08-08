@@ -118,10 +118,10 @@ const Contact = () => {
                     </div>
                 </div>
                 <motion.div
-                    initial={{ opacity: 0, y: 50 }} // 시작 상태: 투명하고 아래쪽(y=50)
-                    whileInView={{ opacity: 1, y: 0 }} // 뷰포트에 보일 때: 완전 보이고 위치 원상복귀
-                    viewport={{ once: false, amount: 0.3 }} // 한 번만 실행, 30% 보이면 애니메이션 실행
-                    transition={{ duration: 0.3, ease: "easeOut" }} // 애니메이션 시간과 이징
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: false, amount: 0.3 }} 
+                    transition={{ duration: 0.3, ease: "easeOut" }} 
                 >
                     <form
                         className="min-w-[500px] bg-[#eaeaea] bg-cover bg-center flex flex-col justify-center gap-4 p-10 shadow-xl rounded-lg shadow-gray-300"
