@@ -62,12 +62,10 @@ const Contact = () => {
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
 
-        // 폼 값 객체화
         const values = Object.fromEntries(formData.entries()) as Record<string, string>;
 
         let isFormValid = true;
 
-        // 각 필드 초기값 설정
         const newInputBg: {
             firstname: string;
             lastname: string;
