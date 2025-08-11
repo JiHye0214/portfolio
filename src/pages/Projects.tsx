@@ -124,10 +124,10 @@ const Projects = () => {
                 <p>A collection of projects that demonstrate my skills and growth</p>
             </div>
             <motion.div
-                initial={{ opacity: 0, y: 50 }} // 시작 상태: 투명하고 아래쪽(y=50)
-                whileInView={{ opacity: 1, y: 0 }} // 뷰포트에 보일 때: 완전 보이고 위치 원상복귀
-                viewport={{ once: false, amount: 0.3 }} // 한 번만 실행, 30% 보이면 애니메이션 실행
-                transition={{ duration: 0.3, ease: "easeOut" }} // 애니메이션 시간과 이징
+                initial={{ opacity: 0, y: 50 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                viewport={{ once: false, amount: 0.3 }} 
+                transition={{ duration: 0.3, ease: "easeOut" }} 
                 className="w-fit max-w-[910px] flex flex-wrap justify-start gap-5 mx-auto pb-[100px]"
             >
                 {projectsDB.map((project, index) => (
