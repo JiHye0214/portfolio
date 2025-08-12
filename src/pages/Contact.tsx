@@ -35,7 +35,6 @@ const Contact = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
 
-        // 유효성 검사 조건
         const regexName = /^[A-Za-z]+$/;
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

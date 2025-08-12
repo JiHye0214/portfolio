@@ -8,7 +8,7 @@ type LayoutProps = {
         icon: string;
         type: string;
         level: number;
-        experienceDuration: number;
+        expDuration: number;
     };
 };
 
@@ -20,7 +20,7 @@ const SkillTag = ({ skill }: LayoutProps) => {
             </div>
             <div className="flex flex-col">
                 <span className="text-xs">
-                    {skill.name} / {skill.experienceDuration} {skill.experienceDuration < 2 ? "year" : "years"}
+                    {skill.name} / {skill.expDuration} {skill.expDuration < 2 ? "year" : "years"}
                 </span>
                 <div>
                     {Array.from({ length: 10 }).map((_, i) => (
