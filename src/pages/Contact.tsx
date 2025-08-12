@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { supabase } from "../supabaseClient";
 
 const Contact = () => {
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
+    const [email, setEmail] = useState("");
+    const [message, setMessage] = useState("");
+
+    const [loading, setLoading] = useState(false);
+
     const [inputBg, setInputBg] = useState({
         firstname: "",
         lastname: "",
@@ -32,22 +40,6 @@ const Contact = () => {
 
         setInputBg((prev) => ({ ...prev, [name]: newBg }));
     };
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-
-        const regexName = /^[A-Za-z]+$/;
-        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        let newBg = "";
-
-        if (name === "email") {
-            newBg = regexEmail.test(value) ? "" : "bg-pink-200";
-        } else {
-            newBg = regexName.test(value) ? "" : "bg-pink-200";
-        }
-
-        setInputBg((prev) => ({ ...prev, [name]: newBg }));
-    };
 
     const validateField = (name: string, value: string): boolean => {
         if (value.trim() === "") return false;
@@ -55,7 +47,7 @@ const Contact = () => {
         if (name === "message") return value.length > 0;
         return regexName.test(value);
     };
-    const submitContact = (e: React.FormEvent<HTMLFormElement>) => {
+    const submitContact = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const form = e.target as HTMLFormElement;
@@ -87,8 +79,19 @@ const Contact = () => {
         setInputBg(newInputBg);
 
         if (isFormValid) {
-            console.log("폼 제출 데이터:", values);
-            // 실제 제출 처리 로직 추가 가능
+            // console.log("폼 제출 데이터:", values);
+            setLoading(true);
+            const { data, error } = await supabase.from("contacts").insert([values]);
+            setLoading(false);
+
+            if (error) {
+                console.error(error);
+            } else {
+                setFirstname("");
+                setLastname("");
+                setEmail("");
+                setMessage("");
+            }
         }
     };
 
@@ -107,7 +110,7 @@ const Contact = () => {
                     </div>
                     <div className="flex items-center gap-2">
                         <a href="https://github.com/JiHye0214" target="_blank" rel="noopener noreferrer">
-                            <img src="/assets/logo/github2.png" alt="" className="w-12" />
+                            <img src="/assets/logo/github3.png" alt="" className="w-11" />
                         </a>
                         <a href="https://www.linkedin.com/in/jihye-p-2b3755344/" target="_blank" rel="noopener noreferrer">
                             <img src="/assets/logo/linkedIn.png" alt="" className="w-10" />
@@ -117,8 +120,8 @@ const Contact = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false, amount: 0.3 }} 
-                    transition={{ duration: 0.3, ease: "easeOut" }} 
+                    viewport={{ once: false, amount: 0.3 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
                 >
                     <form
                         className="min-w-[500px] bg-[#eaeaea] bg-cover bg-center flex flex-col justify-center gap-4 p-10 shadow-xl rounded-lg shadow-gray-300"
@@ -139,7 +142,8 @@ const Contact = () => {
                                 placeholder="First Name"
                                 onFocus={handleFocus}
                                 onBlur={handleBlur}
-                                onChange={handleChange}
+                                onChange={(e) => setFirstname(e.target.value)}
+                                value={firstname}
                                 className={`w-full rounded-full px-4 py-3 text-sm opacity-80 transition-all duration-300 ease-in-out ${inputBg.firstname}`}
                             />
                             <input
@@ -148,7 +152,8 @@ const Contact = () => {
                                 placeholder="Last Name"
                                 onFocus={handleFocus}
                                 onBlur={handleBlur}
-                                onChange={handleChange}
+                                onChange={(e) => setLastname(e.target.value)}
+                                value={lastname}
                                 className={`w-full rounded-full px-4 py-3 text-sm opacity-80 transition-all duration-300 ease-in-out ${inputBg.lastname}`}
                             />
                         </div>
@@ -158,7 +163,8 @@ const Contact = () => {
                             placeholder="Your Email"
                             onFocus={handleFocus}
                             onBlur={handleBlur}
-                            onChange={handleChange}
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
                             className={`rounded-full px-4 py-3 text-sm opacity-80 transition-all duration-300 ease-in-out ${inputBg.email}`}
                         />
                         <textarea
@@ -166,12 +172,14 @@ const Contact = () => {
                             name="message"
                             onFocus={handleFocus}
                             onBlur={handleBlur}
-                            onChange={handleChange}
+                            onChange={(e) => setMessage(e.target.value)}
+                            value={message}
                             className={`max-h-[130px] h-[130px] rounded-2xl p-4 text-sm opacity-80 transition-all duration-300 ease-in-out ${inputBg.message}`}
                         />
                         <button
                             type="submit"
-                            className="h-[50px] bg-gray-800 hover:bg-gray-900 text-white font-semibold py-2 rounded-full"
+                            disabled={loading}
+                            className="h-[50px] bg-gray-800 hover:bg-gray-900 text-white font-semibold py-2 rounded-full disabled:opacity-50"
                         >
                             Send Message
                         </button>
