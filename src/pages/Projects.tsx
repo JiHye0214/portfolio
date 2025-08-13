@@ -2,82 +2,67 @@
 import { useEffect, useRef, useState } from "react";
 import ProjectCard from "../components/ProjectCard";
 import { motion } from "framer-motion";
+import { supabase } from "../supabaseClient";
+
+interface Project {
+    id: number;
+    title: string;
+    description: string;
+    isTeam: boolean;
+    role: string;
+    challenges: string;
+    stacks: Stack[];
+    screens: string[];
+    link: string;
+    createdAt: string;
+}
+interface Stack {
+    id: number;
+    icon: string;
+    name: string;
+    type: string;
+    level: number;
+    expDuration: number;
+}
+interface ProjectDetail {
+    id: number;
+    title: string;
+    description: string;
+    isTeam: boolean;
+    stacks: Stack[]; // 여기 명시
+    screens: string[];
+    link: string;
+    role: string;
+    challenges: string;
+    createdAt: string;
+}
 
 const Projects = () => {
-    const projectsDB = [
-        {
-            id: 0,
-            title: "My child",
-            description:
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus error vel quasi ratione aperiam, incidunt quas labore ex iste doloribus nulla libero eum. Totam quaerat neque odio ipsa. Qui, delectus?",
-            isTeam: false,
-            stacks: ["React", "NodeJs", "tailwind", "github3", "Typescript"],
-            screens: ["bg.jpg", "bg2.jpg", "bg.jpg", "bg2.jpg", "bg.jpg", "bg2.jpg"],
-            gitLink: "https://www.test.com",
-            role: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus error vel quasi ratione aperiam, incidunt quas labore ex iste doloribus nulla libero eum. Totam quaerat neque odio ipsa. Qui, delectus?",
-            challenges:
-                "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus error vel quasi ratione aperiam, incidunt quas labore ex iste doloribus nulla libero eum. Totam quaerat neque odio ipsa. Qui, delectus?",
-            createdAt: "2023-11",
-        },
-        {
-            id: 1,
-            title: "KKIA Tigers",
-            description: "description",
-            isTeam: true,
-            stacks: ["React", "NodeJs", "tailwind", "github", "Typescript"],
-            screens: ["bg2.jpg", "bg.jpg"],
-            gitLink: "https://www.test.com",
-            role: "test",
-            challenges: "test",
-            createdAt: "2023-12",
-        },
-        {
-            id: 2,
-            title: "Title3",
-            description: "description",
-            isTeam: true,
-            stacks: ["React", "NodeJs", "tailwind", "github", "Typescript"],
-            screens: ["bg.jpg", "bg2.jpg"],
-            gitLink: "https://www.test.com",
-            role: "test",
-            challenges: "test",
-            createdAt: "2024-01",
-        },
-        {
-            id: 3,
-            title: "Title4",
-            description: "description",
-            isTeam: true,
-            stacks: ["React", "NodeJs", "tailwind", "github", "Typescript"],
-            screens: ["bg.jpg", "bg2.jpg"],
-            gitLink: "https://www.test.com",
-            role: "test",
-            challenges: "test",
-            createdAt: "2024-02",
-        },
-        {
-            id: 4,
-            title: "Title5",
-            description: "description",
-            isTeam: true,
-            stacks: ["React", "NodeJs", "tailwind", "github", "Typescript"],
-            screens: ["bg.jpg", "bg2.jpg"],
-            gitLink: "https://www.test.com",
-            role: "test",
-            challenges: "test",
-            createdAt: "2025-03",
-        },
-    ];
+    const [prjDB, setPrjDB] = useState<Project[]>([]);
+    useEffect(() => {
+        const fetchProjects = async () => {
+            const { data, error } = await supabase.rpc("get_projects_full_with_stack_names");
+
+            if (error) {
+                console.error("Supabase fetch error:", error);
+            } else {
+                console.log("Supabase fetch data:", data);
+                setPrjDB(data ?? []);
+            }
+        };
+
+        fetchProjects();
+    }, []);
 
     const [detailOpen, setDetailOpen] = useState(false);
-    const [prjDetail, setPrjDetail] = useState({
+    const [prjDetail, setPrjDetail] = useState<ProjectDetail>({
         id: 0,
         title: "",
         description: "",
         isTeam: false,
         stacks: [],
         screens: [],
-        gitLink: "",
+        link: "",
         role: "",
         challenges: "",
         createdAt: "",
@@ -124,13 +109,13 @@ const Projects = () => {
                 <p>A collection of projects that demonstrate my skills and growth</p>
             </div>
             <motion.div
-                initial={{ opacity: 0, y: 50 }} 
-                whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: false, amount: 0.3 }} 
-                transition={{ duration: 0.3, ease: "easeOut" }} 
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.3 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
                 className="w-fit max-w-[910px] flex flex-wrap justify-start gap-5 mx-auto pb-[100px]"
             >
-                {projectsDB.map((project, index) => (
+                {prjDB.map((project, index) => (
                     <ProjectCard
                         onClick={() => handlePrjDetail(project)}
                         key={index}
@@ -174,9 +159,9 @@ const Projects = () => {
                     </div>
                     <div className="flex flex-col gap-2">
                         <p className="text-xs text-gray-500">Tech Stack</p>
-                        <div className="flex gap-2">
-                            {prjDetail.stacks.map((img, index) => (
-                                <img key={index} src={`/assets/logo/` + img + `.png`} className="w-10" />
+                        <div className="flex gap-5">
+                            {prjDetail.stacks.map((stack) => (
+                                <img key={stack.id} src={`/assets/logo/` + stack.icon} className="w-8 object-contain" />
                             ))}
                         </div>
                     </div>
@@ -196,10 +181,10 @@ const Projects = () => {
                             ))}
                         </div>
                     </div>
-                    <div>
+                    <div className="flex flex-col gap-2">
                         <p className="text-xs text-gray-500">Url</p>
-                        <a href="https://github.com/JiHye0214" target="_blank" rel="noopener noreferrer">
-                            github
+                        <a href="https://github.com/JiHye0214" target="_blank" rel="noopener noreferrer" className="w-fit text-sm rounded-xl px-3 py-2 border">
+                            {prjDetail.link}
                         </a>
                     </div>
                 </div>

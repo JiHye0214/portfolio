@@ -1,9 +1,17 @@
 import React from "react";
 
+interface Stack {
+    id: number;
+    icon: string;
+    name: string;
+    type: string;
+    level: number;
+    expDuration: number;
+}
 type LayoutProps = {
     mainImg: string;
     title: string;
-    stacks: Array<string>;
+    stacks: Stack[];
     date: string;
     isTeam: boolean;
     onClick?: () => void;
@@ -23,7 +31,7 @@ const ProjectCard = ({ mainImg, title, stacks, date, isTeam, onClick }: LayoutPr
                     <p className={`text-xs text-white px-2 py-1 rounded-full ${isTeam ? "bg-blue-500" : "bg-yellow-500"}`}>{isTeam ? "Team" : "Personal"}</p>
                     {stacks.slice(0, 3).map((stack, index) => (
                         <p key={index} className="text-xs text-white bg-gray-300 px-2 py-1 rounded-full">
-                            {stack}
+                            {stack.name}
                         </p>
                     ))}
                 </div>
