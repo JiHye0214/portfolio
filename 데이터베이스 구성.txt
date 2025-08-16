@@ -2,6 +2,8 @@
 
 Contact - id, firstname, lastname, email, message
 Projects - id, title, description, tech stack, imageUrl, gitLink, role, challenges, createdAt
++ 스킬까쥐 완료 
+- 근데 project 연결할 때 projects.tsx 코드가 좀 더러움. 나중에 정리하기 
 
 * 비밀 관리자 페이지
 	컨택 목록 확인 
