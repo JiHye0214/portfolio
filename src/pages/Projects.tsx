@@ -95,8 +95,15 @@ const Projects = () => {
     useEffect(() => {
         if (detailOpen) {
             const el = document.getElementById("modalTop");
+            el?.scrollIntoView({
+                behavior: "auto",
+                block: "start",
+            });
 
-            el?.scrollIntoView({ behavior: "auto" });
+            const el2 = document.getElementById("modalLeft");
+            if (el2) {
+                el2.scrollLeft = 0; 
+            }
         }
     }, [detailOpen]);
 
@@ -165,7 +172,12 @@ const Projects = () => {
                         <p className="text-xs text-gray-500">Tech Stack</p>
                         <div className="flex gap-5">
                             {prjDetail.stacks.map((stack) => (
-                                <img title={stack.name} key={stack.id} src={`/assets/logo/` + stack.icon} className="w-8 object-contain" />
+                                <img
+                                    title={stack.name}
+                                    key={stack.id}
+                                    src={`/assets/logo/` + stack.icon}
+                                    className="w-8 object-contain"
+                                />
                             ))}
                         </div>
                     </div>
@@ -175,13 +187,19 @@ const Projects = () => {
                     </div>
                     <div className="flex flex-col gap-2">
                         <p className="text-xs text-gray-500">Date</p>
-                        <p className="">{prjDetail.startedAt} ~ {prjDetail.createdAt}</p>
+                        <p className="">
+                            {prjDetail.startedAt} ~ {prjDetail.createdAt}
+                        </p>
                     </div>
                     <div className="flex flex-col gap-2">
                         <p className="text-xs text-gray-500">Preview</p>
-                        <div className="w-[700px] flex gap-3 overflow-x-scroll">
+                        <div id="modalLeft" className="w-[700px] flex gap-3 overflow-x-scroll">
                             {prjDetail.screens.map((img, index) => (
-                                <img key={index} src={`/assets/projects/` + prjDetail.title + '/' + img} className="w-[300px] rounded-xl" />
+                                <img
+                                    key={index}
+                                    src={`/assets/projects/` + prjDetail.title + "/" + img}
+                                    className="w-[300px] rounded-xl"
+                                />
                             ))}
                         </div>
                     </div>

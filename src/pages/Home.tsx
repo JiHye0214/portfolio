@@ -3,19 +3,19 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
     return (
-        <div className="h-full flex gap-[150px] justify-center items-center">
-            <img className="w-[350px] rounded-full" src="/assets/profile.jpg" alt="" />
-            <div className="flex flex-col items-center gap-5">
-                <p className="text-2xl font-bold">Hello, I'm</p>
-                <p className="text-5xl font-bold">Jihye Park</p>
-                <p className="text-4xl font-bold text-gray-500">Frontend Developer </p>
+        <div className="h-full flex gap-[150px] justify-center items-center max-[924px]:flex-col max-[924px]:gap-[40px]">
+            <img className="w-[350px] rounded-full max-[924px]:w-[200px]" src="/assets/profile.jpg" alt="" />
+            <div className="flex flex-col items-center gap-5 max-[924px]:gap-3">
+                <p className="text-2xl font-bold text-center max-[924px]:text-lg">Hello, I'm</p>
+                <p className="text-5xl font-bold text-center max-[924px]:text-3xl">Jihye Park</p>
+                <p className="text-4xl font-bold text-center text-gray-500 max-[924px]:text-2xl">Frontend Developer </p>
                 <div className="flex gap-5">
                     <Link to="/projects" className="border-2 border-gray-800 text-gray-800 font-semibold px-4 py-3 rounded-full">
                         View Projects
                     </Link>
-                    <button className="bg-gray-800 border-2 border-gray-800 text-white font-semibold px-4 py-3 rounded-full">
+                    <a href="/files/JIHYEPARK_Resume.pdf" download className="bg-gray-800 border-2 border-gray-800 text-white font-semibold px-4 py-3 rounded-full">
                         Download Resume
-                    </button>
+                    </a>
                 </div>
                 <div>
                     <div className="flex gap-3">
