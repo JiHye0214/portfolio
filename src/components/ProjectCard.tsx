@@ -24,7 +24,7 @@ const ProjectCard = ({ mainImg, title, stacks, startDate, endDate, isTeam, onCli
             onClick={onClick}
             className="w-[290px] h-fit overflow-hidden bg-gray-100 rounded-xl hover:cursor-pointer hover:bg-gray-200 transition-all duration-200 ease-in-out"
         >
-            <img className="w-full h-[151px] object-cover" src={`/assets/projects/` + title + '/' + mainImg} alt="" />
+            <img className="w-full h-[151px] object-cover" src={`/assets/projects/` + title.toLocaleLowerCase() + '/' + mainImg} alt="" />
             <div className="p-5">
                 <p className="text-xs">
                     {startDate} → {endDate}

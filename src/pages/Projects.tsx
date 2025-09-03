@@ -175,7 +175,7 @@ const Projects = () => {
                                 <img
                                     title={stack.name}
                                     key={stack.id}
-                                    src={`/assets/logo/` + stack.icon}
+                                    src={`/assets/logo/` + stack.icon.toLocaleLowerCase()}
                                     className="w-8 object-contain"
                                 />
                             ))}
@@ -197,7 +197,7 @@ const Projects = () => {
                             {prjDetail.screens.map((img, index) => (
                                 <img
                                     key={index}
-                                    src={`/assets/projects/` + prjDetail.title + "/" + img}
+                                    src={`/assets/projects/` + prjDetail.title.toLocaleLowerCase() + "/" + img}
                                     className="w-[300px] rounded-xl"
                                 />
                             ))}
