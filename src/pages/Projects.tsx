@@ -14,6 +14,7 @@ interface Project {
     stacks: Stack[];
     screens: string[];
     link: string;
+    startedAt: string;
     createdAt: string;
 }
 interface Stack {
@@ -34,6 +35,7 @@ interface ProjectDetail {
     link: string;
     role: string;
     challenges: string;
+    startedAt: string;
     createdAt: string;
 }
 
@@ -65,6 +67,7 @@ const Projects = () => {
         link: "",
         role: "",
         challenges: "",
+        startedAt: "",
         createdAt: "",
     });
     const useElementHeight = (ref: React.RefObject<HTMLElement | null>) => {
@@ -113,7 +116,7 @@ const Projects = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.3 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="w-fit max-w-[910px] flex flex-wrap justify-start gap-5 mx-auto pb-[100px]"
+                className="w-fit max-w-[910px] flex flex-wrap justify-start max-[924px]:justify-center gap-5 mx-auto pb-[100px]"
             >
                 {prjDB.map((project, index) => (
                     <ProjectCard
@@ -123,7 +126,8 @@ const Projects = () => {
                         title={project.title}
                         mainImg={project.screens[0]}
                         stacks={project.stacks.slice(0, 3)}
-                        date={project.createdAt}
+                        startDate={project.startedAt}
+                        endDate={project.createdAt}
                     />
                 ))}
             </motion.div>
@@ -161,7 +165,7 @@ const Projects = () => {
                         <p className="text-xs text-gray-500">Tech Stack</p>
                         <div className="flex gap-5">
                             {prjDetail.stacks.map((stack) => (
-                                <img key={stack.id} src={`/assets/logo/` + stack.icon} className="w-8 object-contain" />
+                                <img title={stack.name} key={stack.id} src={`/assets/logo/` + stack.icon} className="w-8 object-contain" />
                             ))}
                         </div>
                     </div>
@@ -171,19 +175,24 @@ const Projects = () => {
                     </div>
                     <div className="flex flex-col gap-2">
                         <p className="text-xs text-gray-500">Date</p>
-                        <p className="">{prjDetail.createdAt}</p>
+                        <p className="">{prjDetail.startedAt} ~ {prjDetail.createdAt}</p>
                     </div>
                     <div className="flex flex-col gap-2">
                         <p className="text-xs text-gray-500">Preview</p>
                         <div className="w-[700px] flex gap-3 overflow-x-scroll">
                             {prjDetail.screens.map((img, index) => (
-                                <img key={index} src={`/assets/` + img} className="w-[300px] rounded-xl" />
+                                <img key={index} src={`/assets/projects/` + prjDetail.title + '/' + img} className="w-[300px] rounded-xl" />
                             ))}
                         </div>
                     </div>
                     <div className="flex flex-col gap-2">
                         <p className="text-xs text-gray-500">Url</p>
-                        <a href="https://github.com/JiHye0214" target="_blank" rel="noopener noreferrer" className="w-fit text-sm rounded-xl px-3 py-2 border">
+                        <a
+                            href="https://github.com/JiHye0214"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-fit text-sm rounded-xl px-3 py-2 border"
+                        >
                             {prjDetail.link}
                         </a>
                     </div>

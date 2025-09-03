@@ -3,7 +3,7 @@ import NavLink from "./NavLink";
 
 const Header = () => {
     return (
-        <header className="max-w-[1200px] h-12 mx-auto flex justify-between items-center">
+        <header className="max-w-[1200px] max-[1200px]:p-5 h-12 mx-auto flex justify-between items-center">
             <p className="font-bold">Jihye Park</p>
             <nav className="flex gap-7 text-sm">
                 <NavLink to="/" label="Home"></NavLink>

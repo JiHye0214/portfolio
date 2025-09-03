@@ -31,7 +31,7 @@ const Skills = () => {
         },
         { type: "backend", label: "Backend" },
         { type: "devops", label: "DevOps & Tools" },
-        { type: "aipython", label: "AI & Python" },
+        { type: "others", label: "Others" },
     ];
 
     return (

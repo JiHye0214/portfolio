@@ -9,3 +9,6 @@ Projects - id, title, description, tech stack, imageUrl, gitLink, role, challeng
 * 비밀 관리자 페이지
 	컨택 목록 확인 
 	방문자 확인 
+
+자꾸 까먹네 
+시작 - npm start
