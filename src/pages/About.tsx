@@ -27,7 +27,7 @@ const About = () => {
                             <p>Core programming languages for front-end and back-end</p>
                         </div>
                         <div className="h-[55px] flex items-center gap-5">
-                            <img src="/assets/logo/nodeJs.png" title="Node.js" alt="Node.js" className="w-14" />
+                            <img src="/assets/logo/nodejs.png" title="Node.js" alt="Node.js" className="w-14" />
                             <p>Backend development with server-side JavaScript</p>
                         </div>
                         <div className="h-[55px] flex items-center gap-5">
