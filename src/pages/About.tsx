@@ -75,7 +75,7 @@ const About = () => {
                             <img src="/assets/logo/github.png" alt="" className="w-14" />
                         </a>
                         <a href="https://www.linkedin.com/in/jihye-p-2b3755344/" target="_blank" rel="noopener noreferrer">
-                            <img src="/assets/logo/linkedIn.png" alt="" className="w-14" />
+                            <img src="/assets/logo/linkedin.png" alt="" className="w-14" />
                         </a>
                     </div>
                 </ScrollDiv>
