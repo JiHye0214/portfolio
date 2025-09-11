@@ -13,7 +13,7 @@ const Home = () => {
                     <Link to="/projects" className="border-2 border-gray-800 text-gray-800 font-semibold px-4 py-3 rounded-full">
                         View Projects
                     </Link>
-                    <a href="/files/JIHYEPARK_Resume.pdf" download className="bg-gray-800 border-2 border-gray-800 text-white font-semibold px-4 py-3 rounded-full">
+                    <a href="/files/JIHYEPARK_SoftDeveloper_Resume.pdf" download className="bg-gray-800 border-2 border-gray-800 text-white font-semibold px-4 py-3 rounded-full">
                         Download Resume
                     </a>
                 </div>
