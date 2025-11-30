@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { supabase } from "../supabaseClient";
+// import { supabase } from "../supabaseClient";
 
 const Contact = () => {
     const [firstname, setFirstname] = useState("");
@@ -78,20 +78,54 @@ const Contact = () => {
 
         setInputBg(newInputBg);
 
-        if (isFormValid) {
-            // console.log("폼 제출 데이터:", values);
-            setLoading(true);
-            const { data, error } = await supabase.from("contacts").insert([values]);
-            setLoading(false);
+        if (!isFormValid) return;
 
-            if (error) {
-                console.error(error);
-            } else {
+        setLoading(true);
+
+        // if (isFormValid) {
+        //     // console.log("폼 제출 데이터:", values);
+        //     setLoading(true);
+        //     const { data, error } = await supabase.from("contacts").insert([values]);
+        //     setLoading(false);
+
+        //     if (error) {
+        //         console.error(error);
+        //     } else {
+        //         setFirstname("");
+        //         setLastname("");
+        //         setEmail("");
+        //         setMessage("");
+        //     }
+        // }
+
+        // Formspree endpoint 사용 (무료)
+        const formspreeEndpoint = "https://formspree.io/f/xkgdnggq"; // ← 여기에 Formspree ID 넣기
+        try {
+            const response = await fetch(formspreeEndpoint, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    firstname: values.firstname,
+                    lastname: values.lastname,
+                    email: values.email,
+                    message: values.message,
+                }),
+            });
+
+            if (response.ok) {
+                alert("Message sent successfully!");
                 setFirstname("");
                 setLastname("");
                 setEmail("");
                 setMessage("");
+            } else {
+                alert("Failed to send message. Try again later.");
             }
+        } catch (err) {
+            console.error(err);
+            alert("An error occurred. Try again later.");
+        } finally {
+            setLoading(false);
         }
     };
 

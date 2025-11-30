@@ -7,15 +7,17 @@
 body {
     @apply text-gray-800;
 }
-input, textarea, button {
-  outline: none;
+input,
+textarea,
+button {
+    outline: none;
 }
 
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE, Edge */
-  scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none; /* IE, Edge */
+    scrollbar-width: none; /* Firefox */
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari, Opera */
+    display: none; /* Chrome, Safari, Opera */
 }
