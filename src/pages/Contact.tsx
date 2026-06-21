@@ -139,7 +139,7 @@ const Contact = () => {
                             Let’s connect — I’d love to hear from you. <br />
                             Reach out through the form below or find me on social media.
                         </p>
-                        <p>qkrwlgp1526@gmail.com</p>
+                        <p>devstudio.hey@gmail.com</p>
                         <p>604-353-1248</p>
                     </div>
                     <div className="flex items-center gap-2">
