@@ -8,9 +8,11 @@ const About = () => {
             <div className="h-[802px] overflow-y-scroll scrollbar-hide">
                 <ScrollDiv isFirst={true}>Hi! I'm Jihye</ScrollDiv>
                 <ScrollDiv isFirst={false} title="Quick Intro">
-                    I’m a front-end development student at Greystone College in Vancouver, <br /> passionate about building interactive
-                    and user-friendly web applications. <br /> Currently, I’m seeking a front-end internship where I can apply my skills
-                    and grow through real-world projects.
+                    I am a front-end developer based in Toronto, recently graduated from college.
+                    <br /> I am passionate about building interactive, user-friendly web applications through clean and logical
+                    code.
+                    <br /> Currently, I am seeking opportunities to contribute to real-world projects and grow as a professional
+                    engineer.
                 </ScrollDiv>
                 <ScrollDiv isFirst={false} title="Core Technologies">
                     <div className="flex flex-col gap-5">
@@ -38,34 +40,38 @@ const About = () => {
                 </ScrollDiv>
                 <ScrollDiv isFirst={false} title="Building Things">
                     <p>
-                        I have completed two full-stack team projects during my studies at a Korean IT academy, gaining hands-on
-                        experience in both frontend and backend development. <br /> Additionally, I collaborated on a real-world
-                        project developing a small language school website in Vancouver using a no-code framework. For detailed
-                        descriptions and demos, please visit my{" "}
+                        I have successfully delivered multiple full-stack projects, building a solid foundation in both front-end
+                        and back-end development.
+                        <br /> Beyond my academic studies, I have collaborated on real-world projects, including developing a
+                        professional website for a local language school.
+                        <br /> Please visit my{" "}
                         <Link to={"/projects"} className="text-yellow-500">
                             projects
                         </Link>{" "}
-                        page.
+                        page for detailed descriptions, live demos, and insights into my development process.
                     </p>
                 </ScrollDiv>
                 <ScrollDiv isFirst={false} title="Passion for Development">
                     <p>
-                        Web development feels like having a conversation with a computer—step by step, I build something I can see
-                        and interact with. <br /> I’m drawn to the clear cause-and-effect nature of coding, where logical input
-                        leads to a direct result. I especially enjoy how errors come with specific, fixable solutions. That
-                        clarity makes the process both challenging and rewarding.
+                        To me, web development is like having a constant conversation with a computer—step by step, I build
+                        interfaces that come to life.
+                        <br /> I’m drawn to the clear cause-and-effect nature of coding, where logic leads to immediate, tangible
+                        results.
+                        <br /> I particularly enjoy the process of troubleshooting; finding specific, fixable solutions to complex
+                        errors makes the journey both challenging and deeply rewarding.
                     </p>
                 </ScrollDiv>
                 <ScrollDiv isFirst={false} title="Now & Next">
                     <div className="flex flex-col gap-10">
                         <p>
-                            I'm currently focusing on front-end development and actively seeking opportunities to gain real-world
-                            experience as a developer. <br /> I'm expanding my skills through personal and team projects, with a
-                            strong interest in user-centered design and collaboration.
+                            I am currently focused on honing my front-end development skills and am actively seeking opportunities
+                            to contribute to professional projects in Toronto. <br /> Through a blend of personal and team-based
+                            initiatives, I am deeply committed to crafting user-centered experiences and effective collaborative
+                            solutions.
                         </p>
                         <p>
-                            My goal is to gain professional experience in Canada as a developer, grow as a well-rounded engineer,
-                            <br /> and work on practical projects where I can improve my problem-solving and teamwork skills.
+                            My goal is to leverage my technical foundation to grow as a well-rounded software engineer, delivering
+                            meaningful value while continuously refining my problem-solving and teamwork capabilities.
                         </p>
                     </div>
                 </ScrollDiv>
