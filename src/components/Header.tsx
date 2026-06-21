@@ -8,6 +8,7 @@ const Header = () => {
             <nav className="flex gap-7 text-sm">
                 <NavLink to="/" label="Home"></NavLink>
                 <NavLink to="/about" label="About"></NavLink>
+                <NavLink to="/work" label="Work"></NavLink>
                 <NavLink to="/projects" label="Projects"></NavLink>
                 <NavLink to="/skills" label="Skills"></NavLink>
                 <NavLink to="/contact" label="Contact"></NavLink>

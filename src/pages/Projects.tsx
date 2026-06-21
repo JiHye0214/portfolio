@@ -283,7 +283,7 @@ const Projects = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.3 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="w-fit max-w-[910px] flex flex-wrap justify-start max-[924px]:justify-center gap-5 mx-auto pb-[100px]"
+                className="w-fit max-w-[940px] flex flex-wrap justify-start max-[940px]:justify-center gap-5 mx-auto pb-[100px]"
             >
                 {prjDB
                     .sort((a, b) => b.id - a.id)
@@ -337,7 +337,7 @@ const Projects = () => {
                                 <img
                                     title={stack.name}
                                     key={stack.id}
-                                    src={`/assets/logo/` + stack.icon.toLocaleLowerCase()}
+                                    src={"/assets/logo/" + stack.icon.toLocaleLowerCase() + ".png"}
                                     className="w-8 object-contain"
                                 />
                             ))}

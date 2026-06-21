@@ -9,6 +9,7 @@ import Skills from "./pages/Skills";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Layout from "./layout/Layout";
+import Work from "./pages/Work";
 
 function App() {
     const location = useLocation();
@@ -35,6 +36,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
+                    <Route path="/work" element={<Work />} />
                     <Route path="/projects" element={<Projects />} />
                     <Route path="/skills" element={<Skills />} />
                     <Route path="/contact" element={<Contact />} />
