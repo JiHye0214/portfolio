@@ -6,7 +6,6 @@ interface Stack {
     name: string;
     type: string;
     level: number;
-    expDuration: number;
 }
 type LayoutProps = {
     mainImg: string;
