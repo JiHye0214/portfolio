@@ -6,7 +6,7 @@ const Footer = () => {
             <div className="border-t border-black/15 pt-5 flex flex-col md:flex-row justify-between gap-3 text-xs text-gray-500">
                 <p>IMYMEMINE.STUDIO</p>
 
-                <p>© 2026 Jade Park. All rights reserved.</p>
+                <p>© 2026 Jihye Park. All rights reserved.</p>
             </div>
         </footer>
     );

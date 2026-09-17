@@ -10,7 +10,7 @@ const Home = () => {
                     <div>
                         <p className="text-xs uppercase tracking-[0.14em] text-gray-400 mb-2">Digital designer & developer</p>
 
-                        <h1 className="text-2xl md:text-3xl font-medium tracking-[-0.04em]">JADE PARK</h1>
+                        <h1 className="text-2xl md:text-3xl font-medium tracking-[-0.04em]">Jihye PARK</h1>
                     </div>
 
                     <p className="hidden md:block text-xs text-gray-400 text-right leading-relaxed">
@@ -42,13 +42,13 @@ const Home = () => {
                         <div className="relative h-[400px] md:h-[500px]">
                             <img
                                 src="/assets/me1.jpg"
-                                alt="Jade Park"
+                                alt="Jihye Park"
                                 className="absolute top-0 right-0 w-[82%] h-[82%] object-cover"
                             />
 
                             <img
                                 src="/assets/me2.jpg"
-                                alt="Jade Park"
+                                alt="Jihye Park"
                                 className="absolute bottom-0 left-0 w-[45%] h-[45%] object-cover border-[8px] border-white"
                             />
                         </div>
