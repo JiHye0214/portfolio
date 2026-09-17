@@ -10,7 +10,7 @@ const Home = () => {
                     <div>
                         <p className="text-xs uppercase tracking-[0.14em] text-gray-400 mb-2">Digital designer & developer</p>
 
-                        <h1 className="text-2xl md:text-3xl font-medium tracking-[-0.04em]">Jihye PARK</h1>
+                        <h1 className="text-2xl md:text-3xl font-medium tracking-[-0.04em]">JIHYE PARK</h1>
                     </div>
 
                     <p className="hidden md:block text-xs text-gray-400 text-right leading-relaxed">
