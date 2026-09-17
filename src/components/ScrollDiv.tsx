@@ -7,17 +7,36 @@ type LayoutProps = {
     children: ReactNode;
 };
 
-const ScrollDiv = ({ isFirst, title, children }: LayoutProps ) => {
+const ScrollDiv = ({ isFirst, title, children }: LayoutProps) => {
     return (
         <motion.div
-            initial={{ opacity: 0, y: 150 }} // 시작 상태: 투명하고 아래쪽(y=50)
-            whileInView={{ opacity: 1, y: 0 }} // 뷰포트에 보일 때: 완전 보이고 위치 원상복귀
-            viewport={{ once: false, amount: 0.3 }} // 한 번만 실행, 30% 보이면 애니메이션 실행
-            transition={{ duration: 0.5, ease: "easeOut" }} // 애니메이션 시간과 이징
-            className={`h-full flex justify-center items-center text-center ${isFirst ? "font-bold text-6xl" : "flex-col gap-10 text-xl"}`}
+            initial={{ opacity: 0, y: 80 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className={`h-full w-full max-w-[980px] mx-auto px-6 md:px-10 flex ${
+                isFirst ? "items-center" : "flex-col justify-center gap-10"
+            }`}
         >
-            <p className="text-4xl font-bold">{title}</p>
-            {children}
+            {isFirst ? (
+                <div>
+                    <p className="text-xs uppercase tracking-[0.14em] text-white/50 mb-5">About me</p>
+
+                    <h1 className="text-6xl md:text-8xl font-black uppercase tracking-[-0.07em] leading-[0.88]">
+                        Hi! I'm
+                        <br />
+                        Jihye.
+                    </h1>
+                </div>
+            ) : (
+                <>
+                    <div className="border-b border-white/20 pb-4">
+                        <p className="text-xs uppercase tracking-[0.14em] text-white/50">{title}</p>
+                    </div>
+
+                    <div className="max-w-3xl text-sm md:text-base leading-[1.9] text-white/70">{children}</div>
+                </>
+            )}
         </motion.div>
     );
 };

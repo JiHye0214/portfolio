@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ProjectCard from "../components/ProjectCard";
 import { motion } from "framer-motion";
-// import { supabase } from "../supabaseClient";
 
 interface Project {
     id: number;
@@ -17,6 +16,7 @@ interface Project {
     startedAt: string;
     createdAt: string;
 }
+
 interface Stack {
     id: number;
     icon: string;
@@ -24,6 +24,7 @@ interface Stack {
     type: string;
     level: number;
 }
+
 interface ProjectWithStacks extends Omit<Project, "stacks"> {
     stacks: Stack[];
 }
@@ -184,7 +185,9 @@ const Projects = () => {
             createdAt: "2025-08-29",
         },
     ];
+
     const [prjDB, setPrjDB] = useState<ProjectWithStacks[]>([]);
+
     const [prjDetail, setPrjDetail] = useState<ProjectWithStacks>({
         id: 0,
         title: "",
@@ -199,7 +202,8 @@ const Projects = () => {
         createdAt: "",
     });
 
-    // 로컬 조인 함수 (stack)
+    const [detailOpen, setDetailOpen] = useState(false);
+
     const mergeProjectsAndStacks = (projects: Project[], stacks: Stack[]) => {
         return projects.map((project) => ({
             ...project,
@@ -209,88 +213,53 @@ const Projects = () => {
 
     useEffect(() => {
         const result = mergeProjectsAndStacks(prjOrigin, stacks);
-        // set 밖에다 함부로 쓰면 infinite loop 걸림
         setPrjDB(result);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // useEffect(() => {
-    // SUPABASE 취소이슈로 일일이 적기 선택
-    // const fetchProjects = async () => {
-    //     const { data, error } = await supabase.rpc("get_projects_full_with_stack_names");
-
-    //     if (error) {
-    //         console.error("Supabase fetch error:", error);
-    //     } else {
-    //         console.log("Supabase fetch data:", data);
-    //         setPrjDB(data ?? []);
-    //     }
-    // };
-    // fetchProjects();
-    // }, []);
-
-    const [detailOpen, setDetailOpen] = useState(false);
-    const useElementHeight = (ref: React.RefObject<HTMLElement | null>) => {
-        const [height, setHeight] = useState<number>(0);
-
-        useEffect(() => {
-            if (!ref.current) return;
-
-            const resizeObserver = new ResizeObserver((entries) => {
-                for (let entry of entries) {
-                    setHeight(entry.contentRect.height + 340);
-                }
-            });
-
-            resizeObserver.observe(ref.current);
-
-            return () => resizeObserver.disconnect();
-        }, [ref]);
-
-        return height;
-    };
-    const modalContentRef = useRef<HTMLDivElement>(null);
-    const contentHeight = useElementHeight(modalContentRef);
-
-    useEffect(() => {
-        if (detailOpen) {
-            const el = document.getElementById("modalTop");
-            el?.scrollIntoView({
-                behavior: "auto",
-                block: "start",
-            });
-
-            const el2 = document.getElementById("modalLeft");
-            if (el2) {
-                el2.scrollLeft = 0;
-            }
-        }
-    }, [detailOpen]);
-
     const handlePrjDetail = (project: ProjectWithStacks) => {
         setPrjDetail(project);
-        setDetailOpen(!detailOpen);
+        setDetailOpen(true);
     };
 
+    useEffect(() => {
+        document.body.style.overflow = detailOpen ? "hidden" : "";
+
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [detailOpen]);
+
     return (
-        <div className="h-full w-full">
-            <div className="flex flex-col items-center gap-7 py-[100px]">
-                <p className="text-5xl font-bold">Projects</p>
-                <p>A collection of projects that demonstrate my skills and growth</p>
+        <div className="h-full w-full overflow-y-auto scrollbar-hide">
+            {/* Header */}
+            <div className="flex flex-col gap-4 pt-20 pb-16">
+                <p className="text-xs uppercase tracking-[0.14em] text-gray-400">Selected work</p>
+
+                <h1 className="text-6xl md:text-7xl font-black uppercase tracking-[-0.06em] leading-[0.9]">PROJECTS.</h1>
+
+                <p className="max-w-md text-sm md:text-base leading-relaxed text-gray-500">
+                    A collection of projects built through design, development, and problem solving.
+                </p>
             </div>
+
+            {/* Project Cards */}
             <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.3 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className="w-fit max-w-[940px] flex flex-wrap justify-start max-[940px]:justify-center gap-5 mx-auto pb-[100px]"
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{
+                    duration: 0.4,
+                    ease: "easeOut",
+                }}
+                className="w-full max-w-[980px] mx-auto px-6 pb-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16"
             >
-                {prjDB
+                {[...prjDB]
                     .sort((a, b) => b.id - a.id)
-                    .map((project, index) => (
+                    .map((project) => (
                         <ProjectCard
                             onClick={() => handlePrjDetail(project)}
-                            key={index}
+                            key={project.id}
                             isTeam={project.isTeam}
                             title={project.title}
                             mainImg={project.screens[0]}
@@ -301,77 +270,107 @@ const Projects = () => {
                     ))}
             </motion.div>
 
+            {/* Project Detail Modal */}
             <div
-                className={`fixed w-full h-full top-0 left-0 flex justify-center items-center transition-all duration-200 ease-in-out overflow-scroll scrollbar-hide ${
+                className={`fixed inset-0 z-50 flex items-start justify-center overflow-y-auto px-6 py-10 transition-all duration-200 ${
                     detailOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
                 }`}
             >
-                <div
-                    id="modalTop"
-                    style={{ height: contentHeight }}
-                    className="absolute inset-0 bg-gray-500 bg-opacity-70"
-                    onClick={() => setDetailOpen(!detailOpen)}
-                ></div>
-                <div
-                    ref={modalContentRef}
-                    className="absolute top-[100px] w-[800px] flex flex-col gap-7 opacity-100 bg-white px-[50px] py-[70px] rounded-xl"
-                >
-                    <p className="text-4xl font-bold">{prjDetail.title}</p>
+                {/* Background */}
+                <div className="fixed inset-0 bg-black/60" onClick={() => setDetailOpen(false)} />
 
-                    <div className="flex flex-col gap-2">
-                        <p className="text-xs text-gray-500">Description</p>
-                        <p className="">{prjDetail.description}</p>
+                {/* Modal */}
+                <div className="relative z-10 w-full max-w-[800px] my-auto flex flex-col gap-7 bg-white px-8 py-12 md:px-[50px] md:py-[60px] rounded-2xl shadow-xl text-gray-900">
+                    {/* Title */}
+                    <div className="flex items-start justify-between gap-5">
+                        <div>
+                            <p className="text-xs uppercase tracking-[0.14em] text-gray-400 mb-3">Project</p>
+
+                            <p className="text-4xl font-bold tracking-[-0.04em]">{prjDetail.title}</p>
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={() => setDetailOpen(false)}
+                            className="text-2xl leading-none text-gray-400 hover:text-gray-900 transition-colors"
+                        >
+                            ×
+                        </button>
                     </div>
+
+                    {/* Description */}
                     <div className="flex flex-col gap-2">
-                        <p className="text-xs text-gray-500">Project Type</p>
+                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Description</p>
+                        <p className="leading-relaxed">{prjDetail.description}</p>
+                    </div>
+
+                    {/* Project Type */}
+                    <div className="flex flex-col gap-2">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Project Type</p>
                         <p>{prjDetail.isTeam ? "Team" : "Personal"}</p>
                     </div>
+
+                    {/* Responsibilities */}
                     <div className="flex flex-col gap-2">
-                        <p className="text-xs text-gray-500">Responsibilities</p>
-                        <p className="">{prjDetail.role}</p>
+                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Responsibilities</p>
+                        <p className="leading-relaxed">{prjDetail.role}</p>
                     </div>
-                    <div className="flex flex-col gap-2">
-                        <p className="text-xs text-gray-500">Tech Stack</p>
-                        <div className="flex gap-5">
+
+                    {/* Tech Stack */}
+                    <div className="flex flex-col gap-3">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Tech Stack</p>
+
+                        <div className="flex flex-wrap gap-4">
                             {prjDetail.stacks.map((stack) => (
                                 <img
                                     title={stack.name}
                                     key={stack.id}
-                                    src={"/assets/logo/" + stack.icon.toLocaleLowerCase() + ".png"}
-                                    className="w-8 object-contain"
+                                    src={`/assets/logo/${stack.icon.toLowerCase()}.png`}
+                                    className="w-8 h-8 object-contain"
                                 />
                             ))}
                         </div>
                     </div>
+
+                    {/* Challenges */}
                     <div className="flex flex-col gap-2">
-                        <p className="text-xs text-gray-500">Challenges</p>
-                        <p className="">{prjDetail.challenges}</p>
+                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Challenges</p>
+                        <p className="leading-relaxed">{prjDetail.challenges}</p>
                     </div>
+
+                    {/* Date */}
                     <div className="flex flex-col gap-2">
-                        <p className="text-xs text-gray-500">Date</p>
-                        <p className="">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Date</p>
+
+                        <p>
                             {prjDetail.startedAt} ~ {prjDetail.createdAt}
                         </p>
                     </div>
-                    <div className="flex flex-col gap-2">
-                        <p className="text-xs text-gray-500">Preview</p>
-                        <div id="modalLeft" className="w-[700px] flex gap-3 overflow-x-scroll">
+
+                    {/* Preview */}
+                    <div className="flex flex-col gap-3">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">Preview</p>
+
+                        <div className="w-full flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
                             {prjDetail.screens.map((img, index) => (
                                 <img
                                     key={index}
-                                    src={`/assets/projects/` + prjDetail.title.toLocaleLowerCase() + "/" + img}
-                                    className="w-[300px] rounded-xl"
+                                    src={`/assets/projects/${prjDetail.title.toLowerCase()}/${img}`}
+                                    className="w-[300px] flex-shrink-0 rounded-xl object-cover"
                                 />
                             ))}
                         </div>
                     </div>
-                    <div className="flex flex-col gap-2">
-                        <p className="text-xs text-gray-500">Url</p>
+
+                    {/* URL */}
+                    <div className="flex flex-col gap-3">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">URL</p>
+
                         <a
-                            href="https://github.com/JiHye0214"
+                            href={prjDetail.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="w-fit text-sm rounded-xl px-3 py-2 border"
+                            className="w-fit max-w-full break-all text-sm border-b border-black/20 pb-1 hover:border-black transition-colors"
                         >
                             {prjDetail.link}
                         </a>

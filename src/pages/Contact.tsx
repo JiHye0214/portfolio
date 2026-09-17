@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-// import { supabase } from "../supabaseClient";
 
 const Contact = () => {
     const [firstname, setFirstname] = useState("");
@@ -22,23 +21,31 @@ const Contact = () => {
 
     const handleFocus = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name } = e.target;
-        setInputBg((prev) => ({ ...prev, [name]: "bg-pink-200 placeholder-pink-700" }));
+
+        setInputBg((prev) => ({
+            ...prev,
+            [name]: "bg-gray-100",
+        }));
     };
+
     const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         let newBg = "";
 
         if (value.trim() === "") {
-            newBg = "bg-white";
+            newBg = "";
         } else if (name === "email") {
-            newBg = regexEmail.test(value) ? "" : "bg-pink-200";
+            newBg = regexEmail.test(value) ? "" : "bg-gray-100";
         } else if (name === "message") {
-            newBg = value.length > 0 ? "" : "bg-pink-200";
+            newBg = "";
         } else {
-            newBg = regexName.test(value) ? "" : "bg-pink-200";
+            newBg = regexName.test(value) ? "" : "bg-gray-100";
         }
 
-        setInputBg((prev) => ({ ...prev, [name]: newBg }));
+        setInputBg((prev) => ({
+            ...prev,
+            [name]: newBg,
+        }));
     };
 
     const validateField = (name: string, value: string): boolean => {
@@ -47,6 +54,7 @@ const Contact = () => {
         if (name === "message") return value.length > 0;
         return regexName.test(value);
     };
+
     const submitContact = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -57,12 +65,7 @@ const Contact = () => {
 
         let isFormValid = true;
 
-        const newInputBg: {
-            firstname: string;
-            lastname: string;
-            email: string;
-            message: string;
-        } = {
+        const newInputBg = {
             firstname: "",
             lastname: "",
             email: "",
@@ -71,8 +74,9 @@ const Contact = () => {
 
         for (const [key, value] of Object.entries(values)) {
             const valid = validateField(key, value);
-            // key를 명시적으로 단언
-            newInputBg[key as keyof typeof newInputBg] = valid ? "" : "bg-pink-200";
+
+            newInputBg[key as keyof typeof newInputBg] = valid ? "" : "bg-gray-100";
+
             if (!valid) isFormValid = false;
         }
 
@@ -82,28 +86,14 @@ const Contact = () => {
 
         setLoading(true);
 
-        // if (isFormValid) {
-        //     // console.log("폼 제출 데이터:", values);
-        //     setLoading(true);
-        //     const { data, error } = await supabase.from("contacts").insert([values]);
-        //     setLoading(false);
+        const formspreeEndpoint = "https://formspree.io/f/xkgdnggq";
 
-        //     if (error) {
-        //         console.error(error);
-        //     } else {
-        //         setFirstname("");
-        //         setLastname("");
-        //         setEmail("");
-        //         setMessage("");
-        //     }
-        // }
-
-        // Formspree endpoint 사용 (무료)
-        const formspreeEndpoint = "https://formspree.io/f/xkgdnggq"; // ← 여기에 Formspree ID 넣기
         try {
             const response = await fetch(formspreeEndpoint, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 body: JSON.stringify({
                     firstname: values.firstname,
                     lastname: values.lastname,
@@ -114,6 +104,7 @@ const Contact = () => {
 
             if (response.ok) {
                 alert("Message sent successfully!");
+
                 setFirstname("");
                 setLastname("");
                 setEmail("");
@@ -130,97 +121,134 @@ const Contact = () => {
     };
 
     return (
-        <div className="flex justify-center items-center h-full w-full">
-            <div className="w-full flex gap-10 justify-between">
-                <div className="flex flex-col justify-between">
-                    <div className="flex flex-col gap-5">
-                        <p className="text-5xl font-bold">Contact Me</p>
-                        <p>
-                            Let’s connect — I’d love to hear from you. <br />
-                            Reach out through the form below or find me on social media.
-                        </p>
-                        <p>devstudio.hey@gmail.com</p>
-                        <p>604-353-1248</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <a href="https://github.com/JiHye0214" target="_blank" rel="noopener noreferrer">
-                            <img src="/assets/logo/github3.png" alt="" className="w-11" />
-                        </a>
-                        <a href="https://www.linkedin.com/in/jihye-p-2b3755344/" target="_blank" rel="noopener noreferrer">
-                            <img src="/assets/logo/linkedin.png" alt="" className="w-10" />
-                        </a>
-                    </div>
-                </div>
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false, amount: 0.3 }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
-                >
-                    <form
-                        className="min-w-[500px] bg-[#eaeaea] bg-cover bg-center flex flex-col justify-center gap-4 p-10 shadow-xl rounded-lg shadow-gray-300"
-                        action=""
-                        onSubmit={submitContact}
-                    >
-                        <div className="mb-5 flex flex-col gap-2">
-                            <p className="text-3xl font-bold">Get in touch</p>
-                            <p>
-                                Drop me a message anytime. <br />
-                                I’ll get back to you as soon as I can.
+        <main className="min-h-[calc(100vh-96px)] flex items-center">
+            <section className="w-full max-w-[1200px] mx-auto py-14 md:py-20">
+                <div className="grid grid-cols-1 md:grid-cols-[0.9fr_1.1fr] gap-16 md:gap-24 items-center">
+                    {/* Left */}
+                    <div className="flex flex-col justify-between min-h-[430px]">
+                        <div>
+                            <p className="text-xs uppercase tracking-[0.14em] text-gray-400 mb-4">Get in touch</p>
+
+                            <h1 className="text-5xl md:text-6xl font-black uppercase tracking-[-0.06em] leading-[0.9]">
+                                LET'S
+                                <br />
+                                TALK.
+                            </h1>
+
+                            <p className="mt-8 max-w-md text-sm md:text-base leading-relaxed text-gray-500">
+                                Have a project in mind, want to collaborate, or just want to say hello?
+                                <br />
+                                Feel free to reach out.
                             </p>
+
+                            <div className="mt-8 flex flex-col gap-2 text-sm">
+                                <a href="mailto:devstudio.hey@gmail.com" className="w-fit hover:text-gray-500 transition-colors">
+                                    devstudio.hey@gmail.com
+                                </a>
+
+                                <p className="text-gray-400">604-353-1248</p>
+                            </div>
                         </div>
-                        <div className="flex gap-3">
-                            <input
-                                type="text"
-                                name="firstname"
-                                placeholder="First Name"
-                                onFocus={handleFocus}
-                                onBlur={handleBlur}
-                                onChange={(e) => setFirstname(e.target.value)}
-                                value={firstname}
-                                className={`w-full rounded-full px-4 py-3 text-sm opacity-80 transition-all duration-300 ease-in-out ${inputBg.firstname}`}
-                            />
-                            <input
-                                type="text"
-                                name="lastname"
-                                placeholder="Last Name"
-                                onFocus={handleFocus}
-                                onBlur={handleBlur}
-                                onChange={(e) => setLastname(e.target.value)}
-                                value={lastname}
-                                className={`w-full rounded-full px-4 py-3 text-sm opacity-80 transition-all duration-300 ease-in-out ${inputBg.lastname}`}
-                            />
+
+                        <div className="flex items-center gap-4">
+                            <a
+                                href="https://github.com/JiHye0214"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="transition-opacity hover:opacity-60"
+                            >
+                                <img src="/assets/logo/github3.png" alt="GitHub" className="w-9" />
+                            </a>
+
+                            <a
+                                href="https://www.linkedin.com/in/jihye-p-2b3755344/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="transition-opacity hover:opacity-60"
+                            >
+                                <img src="/assets/logo/linkedin.png" alt="LinkedIn" className="w-8" />
+                            </a>
                         </div>
-                        <input
-                            type="text"
-                            name="email"
-                            placeholder="Your Email"
-                            onFocus={handleFocus}
-                            onBlur={handleBlur}
-                            onChange={(e) => setEmail(e.target.value)}
-                            value={email}
-                            className={`rounded-full px-4 py-3 text-sm opacity-80 transition-all duration-300 ease-in-out ${inputBg.email}`}
-                        />
-                        <textarea
-                            placeholder="Message"
-                            name="message"
-                            onFocus={handleFocus}
-                            onBlur={handleBlur}
-                            onChange={(e) => setMessage(e.target.value)}
-                            value={message}
-                            className={`max-h-[130px] h-[130px] rounded-2xl p-4 text-sm opacity-80 transition-all duration-300 ease-in-out ${inputBg.message}`}
-                        />
-                        <button
-                            type="submit"
-                            disabled={loading}
-                            className="h-[50px] bg-gray-800 hover:bg-gray-900 text-white font-semibold py-2 rounded-full disabled:opacity-50"
-                        >
-                            Send Message
-                        </button>
-                    </form>
-                </motion.div>
-            </div>
-        </div>
+                    </div>
+
+                    {/* Form */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{
+                            duration: 0.4,
+                            ease: "easeOut",
+                        }}
+                    >
+                        <form onSubmit={submitContact} className="w-full border border-black/10 p-7 md:p-10">
+                            <div className="mb-8">
+                                <p className="text-2xl font-semibold tracking-[-0.03em]">Send a message</p>
+
+                                <p className="mt-2 text-sm text-gray-400">I'll get back to you as soon as I can.</p>
+                            </div>
+
+                            <div className="flex flex-col gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <input
+                                        type="text"
+                                        name="firstname"
+                                        placeholder="First Name"
+                                        onFocus={handleFocus}
+                                        onBlur={handleBlur}
+                                        onChange={(e) => setFirstname(e.target.value)}
+                                        value={firstname}
+                                        className={`w-full border-b border-black/15 bg-transparent px-1 py-3 text-sm outline-none placeholder:text-gray-400 focus:border-black transition-colors ${inputBg.firstname}`}
+                                    />
+
+                                    <input
+                                        type="text"
+                                        name="lastname"
+                                        placeholder="Last Name"
+                                        onFocus={handleFocus}
+                                        onBlur={handleBlur}
+                                        onChange={(e) => setLastname(e.target.value)}
+                                        value={lastname}
+                                        className={`w-full border-b border-black/15 bg-transparent px-1 py-3 text-sm outline-none placeholder:text-gray-400 focus:border-black transition-colors ${inputBg.lastname}`}
+                                    />
+                                </div>
+
+                                <input
+                                    type="text"
+                                    name="email"
+                                    placeholder="Your Email"
+                                    onFocus={handleFocus}
+                                    onBlur={handleBlur}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    value={email}
+                                    className={`w-full border-b border-black/15 bg-transparent px-1 py-3 text-sm outline-none placeholder:text-gray-400 focus:border-black transition-colors ${inputBg.email}`}
+                                />
+
+                                <textarea
+                                    name="message"
+                                    placeholder="Message"
+                                    onFocus={handleFocus}
+                                    onBlur={handleBlur}
+                                    onChange={(e) => setMessage(e.target.value)}
+                                    value={message}
+                                    className={`w-full h-[140px] resize-none border-b border-black/15 bg-transparent px-1 py-3 text-sm outline-none placeholder:text-gray-400 focus:border-black transition-colors ${inputBg.message}`}
+                                />
+
+                                <button
+                                    type="submit"
+                                    disabled={loading}
+                                    className="mt-5 flex items-center justify-between border-b border-black py-3 text-sm font-medium group disabled:opacity-50"
+                                >
+                                    <span>{loading ? "Sending..." : "Send Message"}</span>
+
+                                    <span className="text-lg transition-transform duration-300 group-hover:translate-x-2">→</span>
+                                </button>
+                            </div>
+                        </form>
+                    </motion.div>
+                </div>
+            </section>
+        </main>
     );
 };
 

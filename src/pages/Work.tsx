@@ -15,6 +15,7 @@ interface Work {
     link: string;
     thumb: string;
 }
+
 interface Tech {
     id: number;
     icon: string;
@@ -22,6 +23,7 @@ interface Tech {
     type: string;
     level: number;
 }
+
 interface ProjectWithtech extends Omit<Work, "tech"> {
     tech: Tech[];
 }
@@ -66,12 +68,12 @@ const Work = () => {
             description: "Codebase maintenance and UX/UI optimization.",
             link: "https://www.lingobootcamp.com/en",
             isOngoing: true,
-            thumb: "lingoboot"
+            thumb: "lingoboot",
         },
     ];
+
     const [workDB, setWorkDB] = useState<ProjectWithtech[]>([]);
 
-    // 로컬 조인 함수 (Tech)
     const mergeWorkAndtech = (works: Work[], tech: Tech[]) => {
         return works.map((work) => ({
             ...work,
@@ -82,27 +84,39 @@ const Work = () => {
     useEffect(() => {
         const result = mergeWorkAndtech(workOrigin, tech);
         setWorkDB(result);
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
-        <div className="h-full w-full">
-            <div className="flex flex-col items-center gap-7 py-[100px]">
-                <p className="text-5xl font-bold">Professional Work</p>
-                <p>Maintenance & Development</p>
+        <div className="h-full w-full overflow-y-auto scrollbar-hide">
+            {/* Header */}
+            <div className="flex flex-col gap-4 pt-20 pb-16">
+                <p className="text-xs uppercase tracking-[0.14em] text-gray-400">Professional experience</p>
+
+                <h1 className="text-6xl md:text-7xl font-black uppercase tracking-[-0.06em] leading-[0.9]">WORK.</h1>
+
+                <p className="max-w-md text-sm md:text-base leading-relaxed text-gray-500">
+                    A look at the professional work, maintenance, and development experience I've gained along the way.
+                </p>
             </div>
+
+            {/* Work Cards */}
             <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.3 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className="w-fit max-w-[940px] flex flex-wrap justify-start max-[940px]:justify-center gap-5 mx-auto pb-[100px]"
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{
+                    duration: 0.4,
+                    ease: "easeOut",
+                }}
+                className="w-full max-w-[980px] mx-auto px-6 pb-24 grid grid-cols-1 gap-12"
             >
-                {workDB
+                {[...workDB]
                     .sort((a, b) => b.id - a.id)
-                    .map((work, index) => (
+                    .map((work) => (
                         <WorkCard
-                            key={index}
+                            key={work.id}
                             title={work.title}
                             role={work.role}
                             period={work.period}

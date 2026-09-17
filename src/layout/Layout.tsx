@@ -1,14 +1,12 @@
 import React, { ReactNode } from "react";
-import { useLocation } from "react-router-dom";
 
 type LayoutProps = {
     children: ReactNode;
+    fullHeight?: boolean;
 };
 
-const Layout = ({ children }: LayoutProps) => {
-    const location = useLocation();
-
-    return <div className={`max-w-[1200px] ${(location.pathname === '/projects' || location.pathname === '/skills' || location.pathname === '/work') ? "min-h-[calc(100vh-96px)]" : "h-[calc(100vh-96px)]"} mx-auto`}>{children}</div>;
+const Layout = ({ children, fullHeight = false }: LayoutProps) => {
+    return <div className={`w-full max-w-[1200px] mx-auto px-6 md:px-10 ${fullHeight ? "h-full" : ""}`}>{children}</div>;
 };
 
 export default Layout;

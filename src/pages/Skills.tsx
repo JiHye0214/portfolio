@@ -42,12 +42,12 @@ const Skills = () => {
     ]);
 
     useEffect(() => {
-        //     supabase
-        //         .from("skills")
-        //         .select("*")
-        //         .then(({ data, error }) => {
-        //             if (!error) setSkillsDB(data);
-        //         });
+        // supabase
+        //     .from("skills")
+        //     .select("*")
+        //     .then(({ data, error }) => {
+        //         if (!error) setSkillsDB(data);
+        //     });
     }, []);
 
     const category = [
@@ -55,38 +55,56 @@ const Skills = () => {
             type: "frontend",
             label: "Frontend",
         },
-        { type: "backend", label: "Backend" },
-        { type: "devops", label: "DevOps & Tools" },
-        { type: "others", label: "Others" },
+        {
+            type: "backend",
+            label: "Backend",
+        },
+        {
+            type: "devops",
+            label: "DevOps & Tools",
+        },
+        {
+            type: "others",
+            label: "Others",
+        },
     ];
 
     return (
-        <div className="h-full w-full overflow-hidden">
-            <div className="flex flex-col items-center gap-7 py-[100px]">
-                <p className="text-5xl font-bold">Skills</p>
-                <p>The tools in my developer toolbox.</p>
+        <div className="h-full w-full overflow-y-auto scrollbar-hide">
+            {/* Header */}
+            <div className="flex flex-col gap-4 pt-20 pb-16">
+                <p className="text-xs uppercase tracking-[0.14em] text-gray-400">My toolbox</p>
+
+                <h1 className="text-6xl md:text-7xl font-black uppercase tracking-[-0.06em] leading-[0.9]">SKILLS.</h1>
+
+                <p className="max-w-md text-sm md:text-base leading-relaxed text-gray-500">
+                    The technologies, tools, and platforms I use to build digital products.
+                </p>
             </div>
 
+            {/* Skills */}
             <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.3 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className="w-full flex justify-between pb-[100px]"
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{
+                    duration: 0.4,
+                    ease: "easeOut",
+                }}
+                className="w-full max-w-[980px] mx-auto px-6 pb-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12"
             >
-                {category.map((category, index) => (
-                    <div className="flex flex-col items-center gap-4" key={index}>
-                        <p
-                            className={`w-full rounded-xl px-4 py-2 border-2 border-gray-800 ${
-                                index % 2 === 0 ? "bg-gray-800 text-white" : ""
-                            }`}
-                        >
-                            {category.label}
-                        </p>
+                {category.map((category) => (
+                    <div className="flex flex-col gap-5" key={category.type}>
+                        {/* Category */}
+                        <div className="border-b border-black pb-3">
+                            <p className="text-sm font-semibold uppercase tracking-[0.1em]">{category.label}</p>
+                        </div>
+
+                        {/* Skills */}
                         <div className="flex flex-col gap-3">
-                            {skillsDB.map((skill, index) => {
+                            {skillsDB.map((skill) => {
                                 if (skill.type === category.type) {
-                                    return <SkillTag key={index} skill={skill} />;
+                                    return <SkillTag key={skill.id} skill={skill} />;
                                 }
                             })}
                         </div>
